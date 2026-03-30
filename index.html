@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="漏点确认">
+<title>漏点确认记录工具</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0c0e14;--card:#161924;--bdr:#262b3d;--pri:#3b82f6;--priDk:#1d4ed8;--grn:#22c55e;--grnBg:#052e16;--org:#f59e0b;--orgBg:#422006;--red:#ef4444;--redBg:#450a0a;--pur:#a855f7;--purBg:#1a0533;--cyn:#06b6d4;--txt:#e2e8f0;--mut:#94a3b8;--dim:#64748b;--inp:#0f1219}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,'SF Pro Display','Segoe UI',sans-serif;max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:74px;font-size:14px}
+input,textarea,select{font-family:inherit;font-size:15px}
+.hd{background:var(--card);border-bottom:1px solid var(--bdr);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.hd h1{font-size:16px;font-weight:700}.hd .sub{font-size:11px;color:var(--dim)}
+.hd .st{text-align:right}.hd .st .n{font-size:19px;font-weight:800;color:var(--grn)}.hd .st .n span{font-size:11px;font-weight:400;color:var(--dim)}
+.nv{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--card);border-top:1px solid var(--bdr);display:flex;z-index:100}
+.nv button{flex:1;padding:8px 0;text-align:center;font-size:10px;background:none;border:none;cursor:pointer;color:var(--dim);font-weight:400}
+.nv button.a{color:var(--pri);font-weight:700}.nv .ic{font-size:18px;display:block;margin-bottom:1px}.nv .ic.b{font-size:26px;line-height:22px}
+.vw{padding:12px 16px 24px;display:none}.vw.a{display:block}
+.tst{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--grn);color:#fff;padding:8px 22px;border-radius:20px;font-size:13px;font-weight:600;z-index:400;opacity:0;transition:opacity .2s;pointer-events:none}.tst.s{opacity:1}
+.fg{margin-bottom:14px}.lb{font-size:12px;font-weight:600;color:var(--mut);margin-bottom:5px;display:block}
+.ip{width:100%;background:var(--inp);border:1px solid var(--bdr);border-radius:8px;padding:11px 12px;color:var(--txt);font-size:15px;outline:none}
+textarea.ip{min-height:60px;resize:vertical}
+.cg{display:flex;flex-wrap:wrap;gap:7px}
+.ch{padding:9px 13px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:var(--inp);color:var(--dim);border:1.5px solid var(--bdr);user-select:none;transition:all .15s}
+.ch.s{background:var(--priDk);color:#fff;border-color:var(--pri)}.ch.sm{padding:8px 10px;font-size:12px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fx{display:flex;gap:8px}.f1{flex:1}
+.bt{width:100%;padding:13px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;border:none;color:#fff;margin-top:6px}
+.bt-p{background:var(--pri)}.bt-g{background:var(--grn)}.bt-r{background:var(--red)}.bt-c{background:var(--cyn)}.bt-gh{background:var(--card);color:var(--mut)}
+.bt-s{width:auto;padding:9px 16px;margin-top:0;font-size:13px}
+.cd{background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:11px 14px;margin-bottom:7px;cursor:pointer}
+.tg{display:inline-block;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:600}
+.tb{border-radius:12px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.tb.i{background:var(--card);border:1px solid var(--bdr)}.tb.r{background:var(--priDk);border:1px solid var(--pri)}
+.td{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums}
+.sr{display:flex;gap:5px;margin-bottom:10px}.sc{flex:1;background:var(--card);border-radius:10px;padding:7px 4px;text-align:center;border:1px solid var(--bdr)}
+.sc .n{font-size:19px;font-weight:800}.sc .l{font-size:10px;color:var(--dim)}
+.fb{display:flex;gap:4px;margin-bottom:10px;overflow-x:auto;padding-bottom:2px}
+.fc{padding:5px 10px;border-radius:14px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;border:1px solid var(--bdr);background:transparent;color:var(--dim)}
+.fc.a{border-color:var(--pri);background:var(--priDk);color:#fff}
+.md{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;display:flex;align-items:flex-end;justify-content:center}
+.mb{background:var(--card);border-radius:16px 16px 0 0;max-width:480px;width:100%;max-height:85vh;overflow:auto;padding:20px 18px 30px}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.mh h3{font-size:16px}
+.mc{background:none;border:none;color:var(--dim);font-size:22px;cursor:pointer}
+.dr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bdr)}.dr .dl{color:var(--dim);font-size:13px}.dr .dv{color:var(--txt);font-size:13px;font-weight:600;text-align:right;max-width:60%}
+.br{margin-bottom:7px}.bl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px}.bk{height:5px;background:var(--inp);border-radius:3px}.bf{height:5px;border-radius:3px;transition:width .3s}
+.di{padding:10px 12px;border-radius:8px;margin-bottom:4px;cursor:pointer;border:1px solid var(--bdr)}.di.u{opacity:.4;cursor:default;background:var(--inp)}
+canvas{display:none}
+</style>
+</head>
+<body>
+<div class="hd"><div><h1>漏点确认记录</h1><div class="sub">声域科技 · 现场工具 <span id="devCnt"></span></div></div><div class="st"><div class="n"><span id="hC">0</span><span>/<span id="hT">0</span></span></div><div style="font-size:10px;color:var(--dim)">确认/总数</div></div></div>
+<div class="tst" id="toast"></div>
+<div class="vw a" id="vList"></div>
+<div class="vw" id="vAdd"></div>
+<div class="vw" id="vStats"></div>
+<div class="vw" id="vDetail"></div>
+<input type="file" id="camIn" accept="image/*" capture="environment" style="display:none">
+<input type="file" id="xlIn" accept=".xlsx,.xls,.csv,.tsv" style="display:none">
+<input type="file" id="jsonIn" accept=".json" style="display:none">
+<canvas id="wmCanvas"></canvas>
+<div class="nv">
+<button class="a" onclick="go('list')" id="nL"><span class="ic">📋</span>记录</button>
+<button onclick="go('add')" id="nA"><span class="ic b">⊕</span>新增</button>
+<button onclick="go('stats')" id="nS"><span class="ic">📊</span>统计</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const RS=[{v:"confirmed",l:"✅ 确认漏点",c:"var(--grn)",bg:"var(--grnBg)"},{v:"suspected",l:"🔶 疑似漏点",c:"var(--org)",bg:"var(--orgBg)"},{v:"not_found",l:"❌ 未发现",c:"var(--red)",bg:"var(--redBg)"},{v:"unable",l:"⚠️ 无法检测",c:"var(--pur)",bg:"var(--purBg)"}];
+const LT=["管体裂缝","接口渗漏","阀门漏损","消防栓","用户侧","其他"],MT=["铸铁","PVC","PE","钢管","水泥管","不明"];
+const DN=["DN50","DN75","DN100","DN150","DN200","DN250","DN300","DN400","DN500","DN600+"];
+const DP=["<0.5m","0.5-1m","1-1.5m","1.5-2m",">2m","不明"],SF=["柏油路","水泥路","泥土","绿化带","砖石路","其他"];
+const VL=[{v:"large",l:"大 >5t/日"},{v:"medium",l:"中 1-5t/日"},{v:"small",l:"小 <1t/日"}];
+const DF=[{v:"easy",l:"简单"},{v:"medium",l:"中等"},{v:"hard",l:"困难"}];
+const FM=[{f:"alertId",l:"告警编号",k:["编号","id","告警","alert","设备编号","设备号","sensor","编码","序号","点位"]},{f:"lat",l:"纬度",k:["纬度","lat","latitude","y"]},{f:"lng",l:"经度",k:["经度","lng","lon","longitude","x"]},{f:"material",l:"管材",k:["管材","材质","material","管道材质"]},{f:"diameter",l:"管径",k:["管径","口径","diameter","dn","公称直径"]},{f:"depth",l:"埋深",k:["埋深","depth","burial"]},{f:"location",l:"位置",k:["位置","地址","address","location","安装位置","地点"]},{f:"notes",l:"备注",k:["备注","说明","remark","note"]}];
+
+let recs=JSON.parse(localStorage.getItem("lk-r")||"[]");
+let team=JSON.parse(localStorage.getItem("lk-t")||"[]");
+let devs=JSON.parse(localStorage.getItem("lk-d")||"[]");
+let eId=null,tiv=null,elp=0,tng=false,cv="list",flt="all",photoCnt=0;
+let F={alertId:"",result:"",leakType:"",material:"",diameter:"",depth:"",surface:"",volume:"",difficulty:"",location:"",notes:"",person:"",lat:"",lng:"",duration:0};
+
+const sv=()=>localStorage.setItem("lk-r",JSON.stringify(recs));
+const svT=()=>localStorage.setItem("lk-t",JSON.stringify(team));
+const svD=()=>localStorage.setItem("lk-d",JSON.stringify(devs));
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("s");setTimeout(()=>t.classList.remove("s"),2200)}
+const $=id=>document.getElementById(id);
+const fT=ts=>{const d=new Date(ts);return`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`};
+const fF=ts=>{const d=new Date(ts);return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`};
+const fD=s=>{if(!s)return"-";const m=Math.floor(s/60),ss=s%60;return m>0?`${m}分${ss>0?ss+"秒":""}`:`${ss}秒`};
+const rl=v=>RS.find(r=>r.v===v);
+function gs(){const s={total:recs.length,confirmed:recs.filter(r=>r.result==="confirmed").length,suspected:recs.filter(r=>r.result==="suspected").length,not_found:recs.filter(r=>r.result==="not_found").length,unable:recs.filter(r=>r.result==="unable").length};s.rate=s.total?((s.confirmed/s.total)*100).toFixed(1):"0";return s}
+function uh(){const s=gs();$("hC").textContent=s.confirmed;$("hT").textContent=s.total;$("devCnt").textContent=devs.length?`· ${devs.length}设备`:""}
+
+function go(v,noReset){
+  cv=v;document.querySelectorAll(".vw").forEach(e=>e.classList.remove("a"));
+  document.querySelectorAll(".nv button").forEach(b=>b.classList.remove("a"));
+  const map={list:"vList",add:"vAdd",stats:"vStats",detail:"vDetail"};
+  const nmap={list:"nL",add:"nA",stats:"nS"};
+  $(map[v]).classList.add("a");if(nmap[v])$(nmap[v]).classList.add("a");
+  if(v==="list")rList();else if(v==="add"&&!noReset){rF();rAdd();}else if(v==="add")rAdd();else if(v==="stats")rStats();
+}
+function rF(){const kp=F.person;F={alertId:"",result:"",leakType:"",material:"",diameter:"",depth:"",surface:"",volume:"",difficulty:"",location:"",notes:"",person:kp,lat:"",lng:"",duration:0};eId=null;elp=0;tng=false;photoCnt=0;clearInterval(tiv)}
+function sf(k,v){F[k]=F[k]===v?"":v;rAdd()}
+function mc(items,field,cls=""){return items.map(i=>{const v=typeof i==="object"?i.v:i,l=typeof i==="object"?i.l:i;return`<div class="ch${cls?' '+cls:''} ${F[field]===v?'s':''}" onclick="sf('${field}','${v}')">${l}</div>`}).join("")}
+
+// Timer
+function tiS(){tng=true;elp=0;tiv=setInterval(()=>{elp++;const e=$("tD");if(e)e.textContent=`${String(Math.floor(elp/60)).padStart(2,'0')}:${String(elp%60).padStart(2,'0')}`},1000);rAdd()}
+function tiE(){clearInterval(tiv);F.duration=elp;tng=false;rAdd()}
+
+// GPS
+function gps(){if(!navigator.geolocation){toast("请在手机浏览器中打开使用GPS");return}toast("定位中...");navigator.geolocation.getCurrentPosition(p=>{F.lat=p.coords.latitude.toFixed(6);F.lng=p.coords.longitude.toFixed(6);toast("📍 定位成功");rAdd()},err=>{if(err.code===1)toast("请允许位置权限后重试");else if(err.code===2)toast("GPS信号不可用，请到室外重试");else toast("定位超时，请在手机浏览器中打开")},{enableHighAccuracy:true,timeout:10000})}
+
+// ===== WATERMARK PHOTO =====
+$("camIn").addEventListener("change",function(e){
+  const file=e.target.files?.[0];if(!file)return;
+  const img=new Image();
+  img.onload=function(){
+    const canvas=$("wmCanvas");
+    const W=img.width,H=img.height;
+    canvas.width=W;canvas.height=H;
+    const ctx=canvas.getContext("2d");
+    ctx.drawImage(img,0,0);
+    // Watermark bar at bottom
+    const barH=Math.max(110,H*0.09);
+    ctx.fillStyle="rgba(0,0,0,0.75)";
+    ctx.fillRect(0,H-barH,W,barH);
+    const fs1=Math.max(26,Math.min(W*0.04,40));
+    const fs2=Math.max(16,Math.min(W*0.025,24));
+    const pad=16;
+    const rm={confirmed:"确认漏点",suspected:"疑似漏点",not_found:"未发现",unable:"无法检测"};
+    const rc={confirmed:"#22c55e",suspected:"#f59e0b",not_found:"#ef4444",unable:"#a855f7"};
+    const resultText=rm[F.result]||"";
+    // Line 1: Alert ID (left) + Result (right) - separate sides, no overlap
+    const y1=H-barH+fs1+8;
+    ctx.fillStyle="#22c55e";ctx.font=`bold ${fs1}px -apple-system,sans-serif`;
+    ctx.fillText(`#${F.alertId||"--"}`,pad,y1);
+    ctx.fillStyle=rc[F.result]||"#f59e0b";ctx.font=`bold ${fs2}px -apple-system,sans-serif`;
+    const rtW=ctx.measureText(resultText).width;
+    ctx.fillText(resultText,W-rtW-pad,y1);
+    // Line 2: time + person + GPS
+    const y2=y1+fs2+10;
+    ctx.fillStyle="#e2e8f0";ctx.font=`${fs2}px -apple-system,sans-serif`;
+    const line2=`${fF(Date.now())}${F.person?" | "+F.person:""}${F.lat?" | "+F.lat+","+F.lng:""}`;
+    ctx.fillText(line2,pad,y2);
+    // Line 3: pipe info
+    const line3=[F.material,F.diameter,F.depth,F.leakType].filter(Boolean).join(" | ");
+    if(line3){const y3=y2+fs2+8;ctx.fillStyle="#94a3b8";ctx.fillText(line3,pad,y3);}
+    // Download
+    canvas.toBlob(function(blob){
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement("a");
+      a.href=url;a.download=`漏点_${F.alertId||"photo"}_${Date.now()}.jpg`;
+      a.click();URL.revokeObjectURL(url);
+      photoCnt++;toast(`📷 已保存水印照片 (${photoCnt})`);rAdd();
+    },"image/jpeg",0.85);
+  };
+  img.src=URL.createObjectURL(file);e.target.value="";
+});
+function takePhoto(){$("camIn").click()}
+
+// Submit
+function submit(){
+  if(!F.alertId||!F.result){toast("请填写编号和确认结果");return}
+  if(tng){clearInterval(tiv);F.duration=elp;tng=false}
+  const id=eId||"R"+Date.now();
+  const rec={...F,id,photoCount:photoCnt,timestamp:eId?(recs.find(r=>r.id===eId)?.timestamp||Date.now()):Date.now(),updatedAt:Date.now()};
+  if(eId){const i=recs.findIndex(r=>r.id===eId);if(i>=0)recs[i]=rec;}else recs.unshift(rec);
+  sv();if(F.person&&!team.includes(F.person)){team.push(F.person);svT()}
+  toast(eId?"已更新":`#${F.alertId} ✓`);rF();uh();go("list");
+}
+function del(id){if(!confirm("确认删除？"))return;recs=recs.filter(r=>r.id!==id);sv();uh();go("list");toast("已删除")}
+function startEdit(id){const r=recs.find(x=>x.id===id);if(!r)return;F={...r};eId=r.id;elp=r.duration||0;tng=false;photoCnt=r.photoCount||0;go("add",true);rAdd()}
+
+// ===== LIST =====
+function rList(){
+  const s=gs(),fl=flt==="all"?recs:recs.filter(r=>r.result===flt);let h="";
+  if(!recs.length){
+    h=`<div style="text-align:center;padding:40px 20px"><div style="font-size:44px;margin-bottom:10px">📋</div><p style="color:var(--dim);margin-bottom:16px">暂无记录</p>`;
+    if(!devs.length)h+=`<button class="bt bt-c bt-s" onclick="$('xlIn').click()">📊 导入告警设备数据</button>`;
+    h+=`</div>`;
+  }else{
+    h+=`<div class="sr">${[{n:s.total,l:"总计",c:"var(--pri)"},{n:s.confirmed,l:"确认",c:"var(--grn)"},{n:s.suspected,l:"疑似",c:"var(--org)"},{n:s.not_found+s.unable,l:"未发现",c:"var(--red)"}].map(x=>`<div class="sc" style="border-top:2px solid ${x.c}"><div class="n" style="color:${x.c}">${x.n}</div><div class="l">${x.l}</div></div>`).join("")}</div>`;
+    h+=`<div class="fb">${[{v:"all",l:"全部"},...RS.map(r=>({v:r.v,l:r.l.slice(2)}))].map(f=>`<div class="fc ${flt===f.v?'a':''}" onclick="flt='${f.v}';rList()">${f.l}</div>`).join("")}</div>`;
+    fl.forEach(r=>{const cr=rl(r.result);
+      h+=`<div class="cd" onclick="showD('${r.id}')"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><span style="font-size:14px;font-weight:700">#${r.alertId}</span><div style="display:flex;align-items:center;gap:5px">${r.duration>0?`<span style="font-size:10px;color:var(--dim)">⏱${fD(r.duration)}</span>`:""} ${r.photoCount>0?`<span style="font-size:10px;color:var(--dim)">📷${r.photoCount}</span>`:""}<span class="tg" style="color:${cr?.c};background:${cr?.bg}">${cr?.l.slice(2)||""}</span></div></div><div style="font-size:11px;color:var(--dim)">${fT(r.timestamp)}${r.person?" · "+r.person:""}${r.leakType?" · "+r.leakType:""}${r.material?" · "+r.material:""}${r.diameter?" · "+r.diameter:""}</div>${r.location?`<div style="font-size:11px;color:var(--dim);margin-top:2px">📍 ${r.location}</div>`:""}</div>`;
+    });
+  }
+  $("vList").innerHTML=h;
+}
+
+// ===== ADD =====
+function rAdd(){
+  const hd=devs.length>0;let h=`
+    <div class="tb ${tng?'r':'i'}"><div><div style="font-size:11px;color:${tng?"var(--txt)":"var(--dim)"};font-weight:600">⏱ 找漏计时</div><div class="td" id="tD" style="color:${tng?"var(--txt)":"var(--mut)"}">${String(Math.floor(elp/60)).padStart(2,'0')}:${String(elp%60).padStart(2,'0')}</div></div>${!tng?`<button class="bt bt-g bt-s" onclick="tiS()">开始</button>`:`<button class="bt bt-r bt-s" onclick="tiE()">停止</button>`}</div>
+    <div class="fg"><label class="lb">告警编号 *</label><div class="fx"><input class="ip f1" placeholder="编号" value="${F.alertId}" oninput="F.alertId=this.value">${hd?`<button class="bt bt-c bt-s" onclick="showAP()">选择</button>`:""}</div>${hd?`<div style="font-size:10px;color:var(--cyn);margin-top:3px">已导入${devs.length}条，点选择关联</div>`:""}</div>
+    <div class="fg"><label class="lb">确认人</label>`;
+  if(team.length)h+=`<div class="cg" style="margin-bottom:8px">${team.map(m=>`<div class="ch ${F.person===m?'s':''}" onclick="F.person=F.person==='${m}'?'':'${m}';rAdd()">${m}</div>`).join("")}</div>`;
+  h+=`<div class="fx"><input class="ip f1" id="nmI" placeholder="${team.length?"或输入新姓名":"姓名"}"><button class="bt bt-g bt-s" onclick="addM()">+</button></div></div>
+    <div class="fg"><label class="lb">📍 GPS定位</label><div class="fx" style="align-items:center"><button class="bt bt-gh bt-s" style="border:1px solid var(--bdr)" onclick="gps()">获取定位</button><span style="font-size:12px;color:${F.lat?"var(--grn)":"var(--dim)"}">${F.lat?F.lat+", "+F.lng:"需在手机浏览器中使用"}</span></div></div>
+    <div class="fg"><label class="lb">确认结果 *</label><div class="g2">${RS.map(r=>`<div class="ch ${F.result===r.v?'s':''}" style="${F.result===r.v?`background:${r.bg};color:${r.c};border-color:${r.c}`:""}" onclick="sf('result','${r.v}')">${r.l}</div>`).join("")}</div></div>`;
+  if(F.result==="confirmed"||F.result==="suspected"){
+    h+=`<div class="fg"><label class="lb">漏点类型</label><div class="cg">${mc(LT,"leakType")}</div></div>
+    <div class="fg"><label class="lb">管材</label><div class="cg">${mc(MT,"material")}</div></div>
+    <div class="fg"><label class="lb">管径</label><div class="cg">${mc(DN,"diameter","sm")}</div></div>
+    <div class="fg"><label class="lb">预估埋深</label><div class="cg">${mc(DP,"depth")}</div></div>
+    <div class="fg"><label class="lb">地面类型</label><div class="cg">${mc(SF,"surface")}</div></div>
+    <div class="fx fg"><div class="f1"><label class="lb">预估漏量</label><div class="cg" style="flex-direction:column">${mc(VL,"volume")}</div></div><div class="f1"><label class="lb">修复难度</label><div class="cg" style="flex-direction:column">${mc(DF,"difficulty")}</div></div></div>`;
+  }
+  h+=`<div class="fg"><label class="lb">📷 拍照加水印 (已拍${photoCnt}张)</label>
+    <div style="display:flex;gap:10px;align-items:center"><button class="bt bt-gh bt-s" style="border:1px solid var(--bdr);font-size:14px" onclick="takePhoto()">📷 拍照</button><span style="font-size:12px;color:var(--dim)">自动添加编号+时间+坐标水印，保存至相册</span></div></div>
+    <div class="fg"><label class="lb">位置描述</label><input class="ip" placeholder="如: XX路XX号门前" value="${F.location||""}" oninput="F.location=this.value"></div>
+    <div class="fg"><label class="lb">备注</label><textarea class="ip" oninput="F.notes=this.value">${F.notes||""}</textarea></div>
+    <button class="bt bt-p" onclick="submit()">${eId?"更新记录":"保存记录"}</button>
+    ${eId?`<button class="bt bt-gh" onclick="rF();go('list')">取消</button>`:""}`;
+  $("vAdd").innerHTML=h;
+}
+function addM(){const i=$("nmI"),n=i?.value?.trim();if(!n)return;if(!team.includes(n)){team.push(n);svT()}F.person=n;toast("已添加");rAdd()}
+
+// ===== DETAIL =====
+function showD(id){
+  const r=recs.find(x=>x.id===id);if(!r)return;const cr=rl(r.result);
+  const vm={large:"大 >5t/日",medium:"中 1-5t/日",small:"小 <1t/日"},dm={easy:"简单",medium:"中等",hard:"困难"};
+  const rw=(l,v)=>v?`<div class="dr"><span class="dl">${l}</span><span class="dv">${v}</span></div>`:"";
+  let h=`<button style="background:none;border:none;color:var(--pri);font-size:13px;cursor:pointer;font-weight:600;margin-bottom:14px" onclick="go('list')">← 返回</button>
+    <div style="background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:14px 16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:20px;font-weight:800">#${r.alertId}</span><span class="tg" style="padding:3px 10px;font-size:12px;color:${cr?.c};background:${cr?.bg}">${cr?.l.slice(2)}</span></div>
+    ${rw("确认时间",fF(r.timestamp))}${rw("确认人员",r.person)}${rw("找漏耗时",fD(r.duration))}${rw("GPS坐标",r.lat?r.lat+", "+r.lng:null)}${rw("漏点类型",r.leakType)}${rw("管材",r.material)}${rw("管径",r.diameter)}${rw("预估埋深",r.depth)}${rw("地面类型",r.surface)}${rw("预估漏量",vm[r.volume])}${rw("修复难度",dm[r.difficulty])}${rw("位置",r.location)}${rw("水印照片",r.photoCount?r.photoCount+"张（在手机相册中）":null)}
+    ${r.notes?`<div style="margin-top:12px"><span style="color:var(--dim);font-size:12px">备注</span><p style="font-size:13px;margin-top:4px;line-height:1.6">${r.notes}</p></div>`:""}
+    </div><div class="fx" style="margin-top:12px"><button class="bt bt-gh f1" style="margin-top:0" onclick="startEdit('${r.id}')">编辑</button><button class="bt bt-r f1" style="margin-top:0" onclick="del('${r.id}')">删除</button></div>`;
+  $("vDetail").innerHTML=h;
+  document.querySelectorAll(".vw").forEach(e=>e.classList.remove("a"));$("vDetail").classList.add("a");
+}
+
+// ===== STATS =====
+function rStats(){
+  const s=gs(),cf=recs.filter(r=>r.result==="confirmed"),lt={},mt={},dt={},dpt={};
+  cf.forEach(r=>{if(r.leakType)lt[r.leakType]=(lt[r.leakType]||0)+1;if(r.material)mt[r.material]=(mt[r.material]||0)+1;if(r.diameter)dt[r.diameter]=(dt[r.diameter]||0)+1;if(r.depth)dpt[r.depth]=(dpt[r.depth]||0)+1});
+  const avgD=recs.filter(r=>r.duration>0).reduce((a,r,_,ar)=>a+r.duration/ar.length,0);
+  const ss={};recs.forEach(r=>{const d=new Date(r.timestamp).toLocaleDateString();if(!ss[d])ss[d]={t:0,c:0};ss[d].t++;if(r.result==="confirmed")ss[d].c++});
+  const bar=(data,color,total)=>Object.entries(data).sort((a,b)=>b[1]-a[1]).map(([k,v])=>{const p=total?((v/total)*100).toFixed(0):"0";return`<div class="br"><div class="bl"><span>${k}</span><span style="color:var(--mut)">${v} (${p}%)</span></div><div class="bk"><div class="bf" style="width:${p}%;background:${color}"></div></div></div>`}).join("");
+  let h=`<h3 style="font-size:17px;margin-bottom:14px">数据统计</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">${[{n:s.total,l:"总数",c:"var(--pri)"},{n:s.confirmed,l:"确认",c:"var(--grn)"},{n:s.rate+"%",l:"确认率",c:"var(--org)"}].map(x=>`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:10px;text-align:center;border-top:3px solid ${x.c}"><div style="font-size:22px;font-weight:800;color:${x.c}">${x.n}</div><div style="font-size:10px;color:var(--dim)">${x.l}</div></div>`).join("")}</div>`;
+  if(avgD>0)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:10px 14px;margin-bottom:14px"><div style="font-size:11px;color:var(--dim)">平均找漏耗时</div><div style="font-size:18px;font-weight:800">${fD(Math.round(avgD))}</div></div>`;
+  if(Object.keys(ss).length)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">按日期统计</div>${Object.entries(ss).map(([d,v])=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bdr);font-size:12px"><span>${d}</span><span><b>${v.t}</b><span style="color:var(--dim)"> 查 / </span><b style="color:var(--grn)">${v.c}</b><span style="color:var(--dim)"> 确认</span></span></div>`).join("")}</div>`;
+  if(Object.keys(lt).length)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">漏点类型</div>${bar(lt,"var(--pri)",s.confirmed)}</div>`;
+  if(Object.keys(mt).length)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">管材分布</div>${bar(mt,"var(--org)",s.confirmed)}</div>`;
+  if(Object.keys(dt).length)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">管径分布</div>${bar(dt,"var(--grn)",s.confirmed)}</div>`;
+  if(Object.keys(dpt).length)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">埋深分布</div>${bar(dpt,"var(--pur)",s.confirmed)}</div>`;
+  h+=`<button class="bt bt-p" onclick="expCSV()">📤 导出CSV数据</button>
+    <div style="margin-top:12px;display:flex;gap:8px"><button class="bt bt-g f1" style="margin-top:0" onclick="expJSON()">💾 备份JSON</button><button class="bt bt-gh f1" style="margin-top:0;border:1px solid var(--bdr)" onclick="$('jsonIn').click()">📥 恢复JSON</button></div>
+    <div style="margin-top:16px;border-top:1px solid var(--bdr);padding-top:14px">
+    <p style="font-size:12px;color:var(--mut);font-weight:600;margin-bottom:8px">数据管理</p>
+    <button class="bt bt-c" style="margin-top:0" onclick="$('xlIn').click()">📊 ${devs.length?"重新导入设备数据 ("+devs.length+"条)":"导入告警设备Excel/CSV"}</button>
+    ${team.length?`<div style="margin-top:12px;font-size:11px;color:var(--dim)">已注册人员: ${team.join("、")} <button style="background:none;border:none;color:var(--red);font-size:11px;cursor:pointer;margin-left:8px" onclick="if(confirm('清空？')){team=[];svT();rStats();}">清空</button></div>`:""}
+    </div>`;
+  $("vStats").innerHTML=h;
+}
+
+// ===== JSON BACKUP/RESTORE =====
+function expJSON(){
+  const data={records:recs,team,devices:devs,exportTime:new Date().toISOString()};
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));
+  a.download=`漏点确认备份_${new Date().toISOString().slice(0,10)}.json`;a.click();toast("备份已导出");
+}
+$("jsonIn").addEventListener("change",function(e){
+  const file=e.target.files?.[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(evt){
+    try{
+      const data=JSON.parse(evt.target.result);
+      if(data.records){
+        const merge=confirm(`文件含${data.records.length}条记录。\n\n点"确定"：合并到现有数据\n点"取消"：替换现有数据`);
+        if(merge){const ids=new Set(recs.map(r=>r.id));data.records.forEach(r=>{if(!ids.has(r.id))recs.push(r)});}
+        else recs=data.records;
+        sv();
+      }
+      if(data.team){team=[...new Set([...team,...data.team])];svT();}
+      if(data.devices){devs=data.devices;svD();}
+      uh();toast(`已恢复 ${data.records?.length||0} 条记录`);
+      if(cv==="list")rList();else if(cv==="stats")rStats();
+    }catch(err){toast("JSON解析失败");}
+  };
+  reader.readAsText(file);e.target.value="";
+});
+
+// ===== CSV EXPORT =====
+function expCSV(){
+  if(!recs.length)return;
+  const h=["告警编号","确认时间","确认人员","确认结果","经度","纬度","漏点类型","管材","管径","埋深","地面","预估漏量","修复难度","找漏耗时(秒)","位置","照片数","备注"];
+  const rm={confirmed:"确认漏点",suspected:"疑似漏点",not_found:"未发现",unable:"无法检测"};
+  const vm={large:"大>5t/日",medium:"中1-5t/日",small:"小<1t/日"},dm={easy:"简单",medium:"中等",hard:"困难"};
+  const rows=recs.map(r=>[`"${r.alertId}"`,fF(r.timestamp),r.person,rm[r.result]||"",r.lng||"",r.lat||"",r.leakType,r.material,r.diameter,r.depth,r.surface,vm[r.volume]||"",dm[r.difficulty]||"",r.duration||"",`"${(r.location||"").replace(/"/g,'')}"`,r.photoCount||0,`"${(r.notes||"").replace(/"/g,'').replace(/\n/g,' ')}"`]);
+  const csv="\uFEFF"+[h,...rows].map(r=>r.join(",")).join("\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));
+  a.download=`漏点确认_${new Date().toISOString().slice(0,10)}.csv`;a.click();toast("CSV已导出");
+}
+
+// ===== EXCEL IMPORT =====
+let impSt={h:[],r:[],m:{}};
+function autoMap(hs){const m={};hs.forEach((h,i)=>{const hl=(h||"").toLowerCase();FM.forEach(fm=>{if(m[fm.f]!==undefined)return;fm.k.forEach(k=>{if(hl.includes(k)||k.includes(hl))m[fm.f]=i})})});return m}
+$("xlIn").addEventListener("change",function(e){
+  const file=e.target.files?.[0];if(!file)return;
+  const ext=file.name.split('.').pop().toLowerCase();
+  if(ext==="csv"||ext==="tsv"){Papa.parse(file,{complete:r=>{if(r.data.length<2){toast("空文件");return}showImp(r.data[0],r.data.slice(1).filter(r=>r.some(c=>c)),file.name)},skipEmptyLines:true});}
+  else{const rd=new FileReader();rd.onload=evt=>{try{const wb=XLSX.read(evt.target.result,{type:"array"}),ws=wb.Sheets[wb.SheetNames[0]],data=XLSX.utils.sheet_to_json(ws,{header:1});if(data.length<2){toast("空文件");return}showImp(data[0].map(h=>(h||"").toString()),data.slice(1).filter(r=>r.some(c=>c)),file.name)}catch(err){toast("解析失败")}};rd.readAsArrayBuffer(file);}
+  e.target.value="";
+});
+function showImp(hs,rs,fn){
+  impSt={h:hs,r:rs,m:autoMap(hs)};
+  let h=`<div class="md" id="impMd"><div class="mb"><div class="mh"><h3>📊 列映射</h3><button class="mc" onclick="$('impMd').remove()">×</button></div>
+    <p style="font-size:12px;color:var(--dim);margin-bottom:4px">${fn} · ${rs.length}条 · ${hs.length}列</p>
+    <p style="font-size:12px;color:var(--cyn);margin-bottom:16px">已自动识别，请确认：</p>`;
+  FM.forEach(fm=>{
+    h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span style="font-size:12px;color:var(--mut);width:66px;flex-shrink:0;text-align:right">${fm.l}</span><span style="color:var(--dim);font-size:12px">←</span><select style="flex:1;background:var(--inp);border:1px solid var(--bdr);border-radius:6px;padding:8px 10px;color:${impSt.m[fm.f]!==undefined?"var(--grn)":"var(--dim)"};font-size:13px;outline:none" onchange="impSt.m['${fm.f}']=this.value==='-1'?undefined:parseInt(this.value)"><option value="-1">— 不映射 —</option>`;
+    hs.forEach((col,i)=>{const pv=rs[0]?.[i]?` (${String(rs[0][i]).slice(0,12)})`:"";h+=`<option value="${i}" ${impSt.m[fm.f]===i?"selected":""}>${col}${pv}</option>`});
+    h+=`</select></div>`;
+  });
+  h+=`<button class="bt bt-c" style="margin-top:12px" onclick="confImp()">确认导入 ${rs.length} 条</button></div></div>`;
+  document.body.insertAdjacentHTML("beforeend",h);
+}
+function confImp(){
+  if(impSt.m.alertId===undefined){toast("请至少映射告警编号");return}
+  devs=impSt.r.map(row=>{const d={};Object.entries(impSt.m).forEach(([f,ci])=>{if(ci!==undefined&&row[ci]!==undefined)d[f]=(row[ci]||"").toString().trim()});return d}).filter(d=>d.alertId);
+  svD();$("impMd")?.remove();toast(`已导入 ${devs.length} 条`);uh();if(cv==="stats")rStats();
+}
+
+// ===== ALERT PICKER =====
+function showAP(){
+  let h=`<div class="md" id="apMd"><div class="mb"><div class="mh"><h3>选择告警点位</h3><button class="mc" onclick="$('apMd').remove()">×</button></div>
+    <input class="ip" id="apSI" placeholder="搜索编号或位置..." oninput="fAP(this.value)" autofocus style="margin-bottom:12px"><div id="apL"></div></div></div>`;
+  document.body.insertAdjacentHTML("beforeend",h);fAP("");
+}
+function fAP(q){
+  const el=$("apL");if(!el)return;const q2=q.toLowerCase();
+  const fl=q2?devs.filter(d=>(d.alertId||"").toLowerCase().includes(q2)||(d.location||"").toLowerCase().includes(q2)):devs.slice(0,50);
+  let h=`<div style="font-size:11px;color:var(--dim);margin-bottom:8px">${fl.length}条${q?" 匹配":""}</div>`;
+  fl.forEach(d=>{const u=recs.some(r=>r.alertId===d.alertId);
+    h+=`<div class="di ${u?'u':''}" onclick="${u?"":"selDev('"+d.alertId.replace(/'/g,"\\'")+"')"}"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px;font-weight:700;color:${u?"var(--dim)":"var(--txt)"}">#${d.alertId}</span>${u?`<span style="font-size:10px;color:var(--dim)">已记录</span>`:""}${d.material?`<span style="font-size:11px;color:var(--mut)">${d.material}${d.diameter?" · "+d.diameter:""}</span>`:""}</div>${d.location?`<div style="font-size:11px;color:var(--dim);margin-top:2px">📍 ${d.location}</div>`:""}</div>`});
+  el.innerHTML=h;
+}
+function selDev(aid){
+  const d=devs.find(x=>x.alertId===aid);if(!d)return;
+  F.alertId=d.alertId||"";
+  if(d.lat)F.lat=d.lat;if(d.lng)F.lng=d.lng;
+  if(d.material){const m=MT.find(m2=>d.material.includes(m2));if(m)F.material=m}
+  if(d.diameter){const dn=DN.find(n=>d.diameter.toUpperCase().includes(n.replace("DN",""))||d.diameter.includes(n));if(dn)F.diameter=dn}
+  if(d.depth){const dp=DP.find(p=>d.depth.includes(p));if(dp)F.depth=dp}
+  if(d.location)F.location=d.location;
+  $("apMd")?.remove();toast(`已关联 #${d.alertId}`);rAdd();
+}
+
+// INIT
+uh();rList();
+</script>
+</body>
+</html>
