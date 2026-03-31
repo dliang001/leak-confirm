@@ -13,7 +13,6 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,'SF Pro Dis
 input,textarea,select{font-family:inherit;font-size:15px}
 .hd{background:var(--card);border-bottom:1px solid var(--bdr);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .hd h1{font-size:16px;font-weight:700}.hd .sub{font-size:11px;color:var(--dim)}
-.hd .st{text-align:right}.hd .st .n{font-size:19px;font-weight:800;color:var(--grn)}.hd .st .n span{font-size:11px;font-weight:400;color:var(--dim)}
 .nv{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--card);border-top:1px solid var(--bdr);display:flex;z-index:100}
 .nv button{flex:1;padding:8px 0;text-align:center;font-size:10px;background:none;border:none;cursor:pointer;color:var(--dim);font-weight:400}
 .nv button.a{color:var(--pri);font-weight:700}.nv .ic{font-size:18px;display:block;margin-bottom:1px}.nv .ic.b{font-size:26px;line-height:22px}
@@ -23,7 +22,7 @@ input,textarea,select{font-family:inherit;font-size:15px}
 .ip{width:100%;background:var(--inp);border:1px solid var(--bdr);border-radius:8px;padding:11px 12px;color:var(--txt);font-size:15px;outline:none}
 textarea.ip{min-height:60px;resize:vertical}
 .cg{display:flex;flex-wrap:wrap;gap:7px}
-.ch{padding:9px 13px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:var(--inp);color:var(--dim);border:1.5px solid var(--bdr);user-select:none;transition:all .15s}
+.ch{padding:9px 13px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:var(--inp);color:var(--dim);border:1.5px solid var(--bdr);user-select:none}
 .ch.s{background:var(--priDk);color:#fff;border-color:var(--pri)}.ch.sm{padding:8px 10px;font-size:12px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fx{display:flex;gap:8px}.f1{flex:1}
 .bt{width:100%;padding:13px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;border:none;color:#fff;margin-top:6px}
@@ -36,324 +35,291 @@ textarea.ip{min-height:60px;resize:vertical}
 .td{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums}
 .sr{display:flex;gap:5px;margin-bottom:10px}.sc{flex:1;background:var(--card);border-radius:10px;padding:7px 4px;text-align:center;border:1px solid var(--bdr)}
 .sc .n{font-size:19px;font-weight:800}.sc .l{font-size:10px;color:var(--dim)}
-.fb{display:flex;gap:4px;margin-bottom:10px;overflow-x:auto;padding-bottom:2px}
-.fc{padding:5px 10px;border-radius:14px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;border:1px solid var(--bdr);background:transparent;color:var(--dim)}
-.fc.a{border-color:var(--pri);background:var(--priDk);color:#fff}
+.fb{display:flex;gap:4px;margin-bottom:10px;overflow-x:auto}.fc{padding:5px 10px;border-radius:14px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;border:1px solid var(--bdr);background:transparent;color:var(--dim)}.fc.a{border-color:var(--pri);background:var(--priDk);color:#fff}
 .md{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;display:flex;align-items:flex-end;justify-content:center}
 .mb{background:var(--card);border-radius:16px 16px 0 0;max-width:480px;width:100%;max-height:85vh;overflow:auto;padding:20px 18px 30px}
-.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.mh h3{font-size:16px}
-.mc{background:none;border:none;color:var(--dim);font-size:22px;cursor:pointer}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.mh h3{font-size:16px}.mc{background:none;border:none;color:var(--dim);font-size:22px;cursor:pointer}
 .dr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bdr)}.dr .dl{color:var(--dim);font-size:13px}.dr .dv{color:var(--txt);font-size:13px;font-weight:600;text-align:right;max-width:60%}
-.br{margin-bottom:7px}.bl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px}.bk{height:5px;background:var(--inp);border-radius:3px}.bf{height:5px;border-radius:3px;transition:width .3s}
+.br{margin-bottom:7px}.bl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px}.bk{height:5px;background:var(--inp);border-radius:3px}.bf{height:5px;border-radius:3px}
 .di{padding:10px 12px;border-radius:8px;margin-bottom:4px;cursor:pointer;border:1px solid var(--bdr)}.di.u{opacity:.4;cursor:default;background:var(--inp)}
+.sd{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}.sd-ok{background:var(--grn)}.sd-off{background:var(--dim)}.sd-err{background:var(--red)}.sd-ing{background:var(--org);animation:pu 1s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.3}}
 canvas{display:none}
 </style>
 </head>
 <body>
-<div class="hd"><div><h1>漏点确认记录</h1><div class="sub">声域科技 · 现场工具 <span id="devCnt"></span></div></div><div class="st"><div class="n"><span id="hC">0</span><span>/<span id="hT">0</span></span></div><div style="font-size:10px;color:var(--dim)">确认/总数</div></div></div>
+<div class="hd"><div><h1>漏点确认记录</h1><div class="sub"><span id="sB"></span><span id="dC"></span></div></div><div style="text-align:right"><div style="font-size:19px;font-weight:800;color:var(--grn)"><span id="hC">0</span><span style="font-size:11px;font-weight:400;color:var(--dim)">/<span id="hT">0</span></span></div><div style="font-size:10px;color:var(--dim)">确认/总数</div></div></div>
 <div class="tst" id="toast"></div>
-<div class="vw a" id="vList"></div>
-<div class="vw" id="vAdd"></div>
-<div class="vw" id="vStats"></div>
-<div class="vw" id="vDetail"></div>
+<div class="vw a" id="vL"></div><div class="vw" id="vA"></div><div class="vw" id="vS"></div><div class="vw" id="vD"></div><div class="vw" id="vC"></div>
 <input type="file" id="camIn" accept="image/*" capture="environment" style="display:none">
 <input type="file" id="xlIn" accept=".xlsx,.xls,.csv,.tsv" style="display:none">
-<input type="file" id="jsonIn" accept=".json" style="display:none">
-<canvas id="wmCanvas"></canvas>
+<input type="file" id="jsIn" accept=".json" style="display:none">
+<canvas id="wm"></canvas>
 <div class="nv">
-<button class="a" onclick="go('list')" id="nL"><span class="ic">📋</span>记录</button>
-<button onclick="go('add')" id="nA"><span class="ic b">⊕</span>新增</button>
-<button onclick="go('stats')" id="nS"><span class="ic">📊</span>统计</button>
+<button class="a" onclick="go('L')" id="nL"><span class="ic">📋</span>记录</button>
+<button onclick="go('A')" id="nA"><span class="ic b">⊕</span>新增</button>
+<button onclick="go('S')" id="nS"><span class="ic">📊</span>统计</button>
+<button onclick="go('C')" id="nC"><span class="ic">⚙️</span>设置</button>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 const RS=[{v:"confirmed",l:"✅ 确认漏点",c:"var(--grn)",bg:"var(--grnBg)"},{v:"suspected",l:"🔶 疑似漏点",c:"var(--org)",bg:"var(--orgBg)"},{v:"not_found",l:"❌ 未发现",c:"var(--red)",bg:"var(--redBg)"},{v:"unable",l:"⚠️ 无法检测",c:"var(--pur)",bg:"var(--purBg)"}];
 const LT=["管体裂缝","接口渗漏","阀门漏损","消防栓","用户侧","其他"],MT=["铸铁","PVC","PE","钢管","水泥管","不明"];
-const DN=["DN50","DN75","DN100","DN150","DN200","DN250","DN300","DN400","DN500","DN600+"];
-const DP=["<0.5m","0.5-1m","1-1.5m","1.5-2m",">2m","不明"],SF=["柏油路","水泥路","泥土","绿化带","砖石路","其他"];
+const DN2=["DN50","DN75","DN100","DN150","DN200","DN250","DN300","DN400","DN500","DN600+"];
+const DP2=["<0.5m","0.5-1m","1-1.5m","1.5-2m",">2m","不明"],SFc=["柏油路","水泥路","泥土","绿化带","砖石路","其他"];
 const VL=[{v:"large",l:"大 >5t/日"},{v:"medium",l:"中 1-5t/日"},{v:"small",l:"小 <1t/日"}];
-const DF=[{v:"easy",l:"简单"},{v:"medium",l:"中等"},{v:"hard",l:"困难"}];
-const FM=[{f:"alertId",l:"告警编号",k:["编号","id","告警","alert","设备编号","设备号","sensor","编码","序号","点位"]},{f:"lat",l:"纬度",k:["纬度","lat","latitude","y"]},{f:"lng",l:"经度",k:["经度","lng","lon","longitude","x"]},{f:"material",l:"管材",k:["管材","材质","material","管道材质"]},{f:"diameter",l:"管径",k:["管径","口径","diameter","dn","公称直径"]},{f:"depth",l:"埋深",k:["埋深","depth","burial"]},{f:"location",l:"位置",k:["位置","地址","address","location","安装位置","地点"]},{f:"notes",l:"备注",k:["备注","说明","remark","note"]}];
-
-let recs=JSON.parse(localStorage.getItem("lk-r")||"[]");
-let team=JSON.parse(localStorage.getItem("lk-t")||"[]");
-let devs=JSON.parse(localStorage.getItem("lk-d")||"[]");
-let eId=null,tiv=null,elp=0,tng=false,cv="list",flt="all",photoCnt=0;
+const DFc=[{v:"easy",l:"简单"},{v:"medium",l:"中等"},{v:"hard",l:"困难"}];
+const FMp=[{f:"alertId",l:"告警编号",k:["编号","id","告警","alert","设备","sensor","编码","序号","点位"]},{f:"lat",l:"纬度",k:["纬度","lat","latitude","y"]},{f:"lng",l:"经度",k:["经度","lng","lon","longitude","x"]},{f:"material",l:"管材",k:["管材","材质","material"]},{f:"diameter",l:"管径",k:["管径","口径","diameter","dn"]},{f:"depth",l:"埋深",k:["埋深","depth","burial"]},{f:"location",l:"位置",k:["位置","地址","address","location","地点"]},{f:"notes",l:"备注",k:["备注","说明","remark","note"]}];
+let recs=JSON.parse(localStorage.getItem("lk-r")||"[]"),team=JSON.parse(localStorage.getItem("lk-t")||"[]"),devs=JSON.parse(localStorage.getItem("lk-d")||"[]");
+let ghT=localStorage.getItem("lk-ght")||"",ghR=localStorage.getItem("lk-ghr")||"dliang001/leak-confirm",ghSha=localStorage.getItem("lk-sha")||"",lsync=localStorage.getItem("lk-ls")||"",sst="off";
+let eId=null,tiv=null,elp=0,tng=false,cv="L",flt="all",pCnt=0;
 let F={alertId:"",result:"",leakType:"",material:"",diameter:"",depth:"",surface:"",volume:"",difficulty:"",location:"",notes:"",person:"",lat:"",lng:"",duration:0};
-
-const sv=()=>localStorage.setItem("lk-r",JSON.stringify(recs));
-const svT=()=>localStorage.setItem("lk-t",JSON.stringify(team));
-const svD=()=>localStorage.setItem("lk-d",JSON.stringify(devs));
-function toast(m){const t=$("toast");t.textContent=m;t.classList.add("s");setTimeout(()=>t.classList.remove("s"),2200)}
-const $=id=>document.getElementById(id);
-const fT=ts=>{const d=new Date(ts);return`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`};
-const fF=ts=>{const d=new Date(ts);return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`};
-const fD=s=>{if(!s)return"-";const m=Math.floor(s/60),ss=s%60;return m>0?`${m}分${ss>0?ss+"秒":""}`:`${ss}秒`};
+const sv=()=>localStorage.setItem("lk-r",JSON.stringify(recs)),svT=()=>localStorage.setItem("lk-t",JSON.stringify(team)),svD=()=>localStorage.setItem("lk-d",JSON.stringify(devs));
+const svG=()=>{localStorage.setItem("lk-ght",ghT);localStorage.setItem("lk-ghr",ghR);localStorage.setItem("lk-sha",ghSha);localStorage.setItem("lk-ls",lsync)};
+function toast(m){const t=Q("toast");t.textContent=m;t.classList.add("s");setTimeout(()=>t.classList.remove("s"),2200)}
+const Q=id=>document.getElementById(id);
+const fT=ts=>{const d=new Date(ts);return(d.getMonth()+1)+"/"+d.getDate()+" "+String(d.getHours()).padStart(2,'0')+":"+String(d.getMinutes()).padStart(2,'0')};
+const fF=ts=>{const d=new Date(ts);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,'0')+"-"+String(d.getDate()).padStart(2,'0')+" "+String(d.getHours()).padStart(2,'0')+":"+String(d.getMinutes()).padStart(2,'0')};
+const fD=s=>{if(!s)return"-";const m=Math.floor(s/60),ss=s%60;return m>0?m+"分"+(ss>0?ss+"秒":""):ss+"秒"};
 const rl=v=>RS.find(r=>r.v===v);
 function gs(){const s={total:recs.length,confirmed:recs.filter(r=>r.result==="confirmed").length,suspected:recs.filter(r=>r.result==="suspected").length,not_found:recs.filter(r=>r.result==="not_found").length,unable:recs.filter(r=>r.result==="unable").length};s.rate=s.total?((s.confirmed/s.total)*100).toFixed(1):"0";return s}
-function uh(){const s=gs();$("hC").textContent=s.confirmed;$("hT").textContent=s.total;$("devCnt").textContent=devs.length?`· ${devs.length}设备`:""}
+function uh(){const s=gs();Q("hC").textContent=s.confirmed;Q("hT").textContent=s.total;Q("dC").textContent=devs.length?devs.length+"设备":"现场工具";uSB()}
+function uSB(){const b=Q("sB");if(!ghT){b.innerHTML="";return}b.innerHTML='<span class="sd sd-'+sst+'"></span>'+(sst==="ok"?"已同步 · ":sst==="ing"?"同步中 · ":sst==="err"?"同步失败 · ":"");}
 
-function go(v,noReset){
-  cv=v;document.querySelectorAll(".vw").forEach(e=>e.classList.remove("a"));
-  document.querySelectorAll(".nv button").forEach(b=>b.classList.remove("a"));
-  const map={list:"vList",add:"vAdd",stats:"vStats",detail:"vDetail"};
-  const nmap={list:"nL",add:"nA",stats:"nS"};
-  $(map[v]).classList.add("a");if(nmap[v])$(nmap[v]).classList.add("a");
-  if(v==="list")rList();else if(v==="add"&&!noReset){rF();rAdd();}else if(v==="add")rAdd();else if(v==="stats")rStats();
-}
-function rF(){const kp=F.person;F={alertId:"",result:"",leakType:"",material:"",diameter:"",depth:"",surface:"",volume:"",difficulty:"",location:"",notes:"",person:kp,lat:"",lng:"",duration:0};eId=null;elp=0;tng=false;photoCnt=0;clearInterval(tiv)}
-function sf(k,v){F[k]=F[k]===v?"":v;rAdd()}
-function mc(items,field,cls=""){return items.map(i=>{const v=typeof i==="object"?i.v:i,l=typeof i==="object"?i.l:i;return`<div class="ch${cls?' '+cls:''} ${F[field]===v?'s':''}" onclick="sf('${field}','${v}')">${l}</div>`}).join("")}
+// ===== GITHUB SYNC =====
+async function ghGet(p){if(!ghT||!ghR)return null;try{const r=await fetch("https://api.github.com/repos/"+ghR+"/contents/"+p,{headers:{Authorization:"token "+ghT,Accept:"application/vnd.github.v3+json"}});if(r.status===404)return{exists:false};if(!r.ok)throw r.status;const d=await r.json();return{exists:true,sha:d.sha,content:JSON.parse(atob(d.content))}}catch(e){return null}}
+async function ghPut(p,c,sha){if(!ghT||!ghR)return false;try{const b={message:"sync "+new Date().toISOString().slice(0,16),content:btoa(unescape(encodeURIComponent(JSON.stringify(c,null,2))))};if(sha)b.sha=sha;const r=await fetch("https://api.github.com/repos/"+ghR+"/contents/"+p,{method:"PUT",headers:{Authorization:"token "+ghT,Accept:"application/vnd.github.v3+json","Content-Type":"application/json"},body:JSON.stringify(b)});if(!r.ok)throw r.status;const d=await r.json();ghSha=d.content.sha;svG();return true}catch(e){return false}}
+async function sPush(){if(!ghT)return;sst="ing";uSB();const ok=await ghPut("data/records.json",{records:recs,team,devices:devs,lastUpdate:Date.now()},ghSha);if(ok){sst="ok";lsync=fF(Date.now());svG();toast("☁️ 已同步")}else{sst="err";toast("同步失败")}uSB();if(cv==="C")rC()}
+async function sPull(){if(!ghT)return;sst="ing";uSB();const r=await ghGet("data/records.json");if(!r){sst="err";uSB();toast("拉取失败");return}if(!r.exists){sst="ok";uSB();toast("云端暂无数据");return}ghSha=r.sha;const rm2=r.content;if(rm2.records){const lm=new Map(recs.map(r2=>[r2.id,r2]));rm2.records.forEach(rr=>{const lo=lm.get(rr.id);if(!lo)recs.push(rr);else if(rr.updatedAt>lo.updatedAt)lm.set(rr.id,rr)});recs=[...lm.values()].sort((a,b)=>b.timestamp-a.timestamp);sv()}if(rm2.team){team=[...new Set([...team,...rm2.team])];svT()}if(rm2.devices&&rm2.devices.length>devs.length){devs=rm2.devices;svD()}sst="ok";lsync=fF(Date.now());svG();uh();toast("☁️ 云端已同步");if(cv==="L")rL();if(cv==="C")rC()}
+async function sTst(){if(!ghT){toast("请先输入Token");return}sst="ing";uSB();try{const r=await fetch("https://api.github.com/repos/"+ghR,{headers:{Authorization:"token "+ghT}});if(r.ok){sst="ok";uSB();toast("✅ 连接成功");const g=await ghGet("data/records.json");if(g&&g.exists)ghSha=g.sha;svG()}else{sst="err";uSB();toast("失败：检查Token和仓库名")}}catch(e){sst="err";uSB();toast("网络错误")}if(cv==="C")rC()}
+async function aSync(){if(ghT){await sPush();const mb=await chkSize();if(mb>=SWARN)setTimeout(()=>toast(mb>=SCRIT?"⚠️ 云端空间紧张("+mb.toFixed(0)+"MB)！请清理":"💡 云端已用"+mb.toFixed(0)+"MB，注意清理"),1500)}}
 
-// Timer
-function tiS(){tng=true;elp=0;tiv=setInterval(()=>{elp++;const e=$("tD");if(e)e.textContent=`${String(Math.floor(elp/60)).padStart(2,'0')}:${String(elp%60).padStart(2,'0')}`},1000);rAdd()}
-function tiE(){clearInterval(tiv);F.duration=elp;tng=false;rAdd()}
+// ===== NAV =====
+function go(v,nr){cv=v;document.querySelectorAll(".vw").forEach(e=>e.classList.remove("a"));document.querySelectorAll(".nv button").forEach(b=>b.classList.remove("a"));Q("v"+v)?.classList.add("a");Q("n"+v)?.classList.add("a");if(v==="L")rL();else if(v==="A"&&!nr){rFm();rA()}else if(v==="A")rA();else if(v==="S")rS();else if(v==="C")rC()}
+function rFm(){const kp=F.person;F={alertId:"",result:"",leakType:"",material:"",diameter:"",depth:"",surface:"",volume:"",difficulty:"",location:"",notes:"",person:kp,lat:"",lng:"",duration:0};eId=null;elp=0;tng=false;pCnt=0;pendingPhotos=[];clearInterval(tiv)}
+function sf(k,v){F[k]=F[k]===v?"":v;rA()}
+function mc2(items,field,cls){return items.map(i=>{const v=typeof i==="object"?i.v:i,l=typeof i==="object"?i.l:i;return'<div class="ch'+(cls?' '+cls:'')+(F[field]===v?' s':'')+'" onclick="sf(\''+field+"','"+v+"')\">"+l+"</div>"}).join("")}
 
-// GPS
-function gps(){if(!navigator.geolocation){toast("请在手机浏览器中打开使用GPS");return}toast("定位中...");navigator.geolocation.getCurrentPosition(p=>{F.lat=p.coords.latitude.toFixed(6);F.lng=p.coords.longitude.toFixed(6);toast("📍 定位成功");rAdd()},err=>{if(err.code===1)toast("请允许位置权限后重试");else if(err.code===2)toast("GPS信号不可用，请到室外重试");else toast("定位超时，请在手机浏览器中打开")},{enableHighAccuracy:true,timeout:10000})}
+function tiS(){tng=true;elp=0;tiv=setInterval(()=>{elp++;const e=Q("tD");if(e)e.textContent=String(Math.floor(elp/60)).padStart(2,'0')+":"+String(elp%60).padStart(2,'0')},1000);rA()}
+function tiE(){clearInterval(tiv);F.duration=elp;tng=false;rA()}
+function gps(){if(!navigator.geolocation){toast("请在手机浏览器中打开");return}toast("定位中...");navigator.geolocation.getCurrentPosition(p=>{F.lat=p.coords.latitude.toFixed(6);F.lng=p.coords.longitude.toFixed(6);toast("📍 定位成功");rA()},er=>{toast(er.code===1?"请允许位置权限":er.code===2?"GPS信号不可用":"定位超时")},{enableHighAccuracy:true,timeout:10000})}
 
-// ===== WATERMARK PHOTO =====
-$("camIn").addEventListener("change",function(e){
-  const file=e.target.files?.[0];if(!file)return;
-  const img=new Image();
-  img.onload=function(){
-    const canvas=$("wmCanvas");
-    const W=img.width,H=img.height;
-    canvas.width=W;canvas.height=H;
-    const ctx=canvas.getContext("2d");
-    ctx.drawImage(img,0,0);
-    // Watermark bar at bottom
-    const barH=Math.max(110,H*0.09);
-    ctx.fillStyle="rgba(0,0,0,0.75)";
-    ctx.fillRect(0,H-barH,W,barH);
-    const fs1=Math.max(26,Math.min(W*0.04,40));
-    const fs2=Math.max(16,Math.min(W*0.025,24));
-    const pad=16;
+// ===== WATERMARK =====
+let pendingPhotos=[];
+Q("camIn").addEventListener("change",function(e){
+  const file=e.target.files?.[0];if(!file)return;const img=new Image();
+  img.onload=function(){const c=Q("wm"),W=img.width,H=img.height;c.width=W;c.height=H;const x=c.getContext("2d");x.drawImage(img,0,0);
+    const bH=Math.max(110,H*0.09);x.fillStyle="rgba(0,0,0,0.75)";x.fillRect(0,H-bH,W,bH);
+    const f1=Math.max(26,Math.min(W*0.04,40)),f2=Math.max(16,Math.min(W*0.025,24)),pd=16;
     const rm={confirmed:"确认漏点",suspected:"疑似漏点",not_found:"未发现",unable:"无法检测"};
     const rc={confirmed:"#22c55e",suspected:"#f59e0b",not_found:"#ef4444",unable:"#a855f7"};
-    const resultText=rm[F.result]||"";
-    // Line 1: Alert ID (left) + Result (right) - separate sides, no overlap
-    const y1=H-barH+fs1+8;
-    ctx.fillStyle="#22c55e";ctx.font=`bold ${fs1}px -apple-system,sans-serif`;
-    ctx.fillText(`#${F.alertId||"--"}`,pad,y1);
-    ctx.fillStyle=rc[F.result]||"#f59e0b";ctx.font=`bold ${fs2}px -apple-system,sans-serif`;
-    const rtW=ctx.measureText(resultText).width;
-    ctx.fillText(resultText,W-rtW-pad,y1);
-    // Line 2: time + person + GPS
-    const y2=y1+fs2+10;
-    ctx.fillStyle="#e2e8f0";ctx.font=`${fs2}px -apple-system,sans-serif`;
-    const line2=`${fF(Date.now())}${F.person?" | "+F.person:""}${F.lat?" | "+F.lat+","+F.lng:""}`;
-    ctx.fillText(line2,pad,y2);
-    // Line 3: pipe info
-    const line3=[F.material,F.diameter,F.depth,F.leakType].filter(Boolean).join(" | ");
-    if(line3){const y3=y2+fs2+8;ctx.fillStyle="#94a3b8";ctx.fillText(line3,pad,y3);}
-    // Download
-    canvas.toBlob(function(blob){
-      const url=URL.createObjectURL(blob);
-      const a=document.createElement("a");
-      a.href=url;a.download=`漏点_${F.alertId||"photo"}_${Date.now()}.jpg`;
-      a.click();URL.revokeObjectURL(url);
-      photoCnt++;toast(`📷 已保存水印照片 (${photoCnt})`);rAdd();
-    },"image/jpeg",0.85);
-  };
-  img.src=URL.createObjectURL(file);e.target.value="";
-});
-function takePhoto(){$("camIn").click()}
+    const y1=H-bH+f1+8;x.fillStyle="#22c55e";x.font="bold "+f1+"px -apple-system,sans-serif";x.fillText("#"+(F.alertId||"--"),pd,y1);
+    const rt=rm[F.result]||"";x.fillStyle=rc[F.result]||"#f59e0b";x.font="bold "+f2+"px -apple-system,sans-serif";x.fillText(rt,W-x.measureText(rt).width-pd,y1);
+    x.fillStyle="#e2e8f0";x.font=f2+"px -apple-system,sans-serif";x.fillText(fF(Date.now())+(F.person?" | "+F.person:"")+(F.lat?" | "+F.lat+","+F.lng:""),pd,y1+f2+10);
+    const l3=[F.material,F.diameter,F.depth,F.leakType].filter(Boolean).join(" | ");
+    if(l3){x.fillStyle="#94a3b8";x.fillText(l3,pd,y1+f2*2+18)}
+    c.toBlob(bl=>{const a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download="漏点_"+(F.alertId||"p")+"_"+Date.now()+".jpg";a.click();
+      // Generate medium thumbnail (800px, ~40-50KB) for GitHub storage
+      const tc=document.createElement("canvas");const mx=800;let tw=W,th=H;
+      if(tw>th){if(tw>mx){th=th*mx/tw;tw=mx}}else{if(th>mx){tw=tw*mx/th;th=mx}}
+      tc.width=tw;tc.height=th;tc.getContext("2d").drawImage(img,0,0,tw,th);
+      const thumb=tc.toDataURL("image/jpeg",0.55);
+      pendingPhotos.push({data:thumb,time:Date.now()});
+      pCnt++;toast("📷 已保存 ("+pCnt+") 含云端缩略图");rA();
+    },"image/jpeg",0.85)};
+  img.src=URL.createObjectURL(file);e.target.value=""});
+function takePhoto(){Q("camIn").click()}
 
-// Submit
-function submit(){
-  if(!F.alertId||!F.result){toast("请填写编号和确认结果");return}
-  if(tng){clearInterval(tiv);F.duration=elp;tng=false}
-  const id=eId||"R"+Date.now();
-  const rec={...F,id,photoCount:photoCnt,timestamp:eId?(recs.find(r=>r.id===eId)?.timestamp||Date.now()):Date.now(),updatedAt:Date.now()};
-  if(eId){const i=recs.findIndex(r=>r.id===eId);if(i>=0)recs[i]=rec;}else recs.unshift(rec);
-  sv();if(F.person&&!team.includes(F.person)){team.push(F.person);svT()}
-  toast(eId?"已更新":`#${F.alertId} ✓`);rF();uh();go("list");
-}
-function del(id){if(!confirm("确认删除？"))return;recs=recs.filter(r=>r.id!==id);sv();uh();go("list");toast("已删除")}
-function startEdit(id){const r=recs.find(x=>x.id===id);if(!r)return;F={...r};eId=r.id;elp=r.duration||0;tng=false;photoCnt=r.photoCount||0;go("add",true);rAdd()}
+// ===== SUBMIT =====
+async function submit(){if(!F.alertId||!F.result){toast("请填写编号和确认结果");return}if(tng){clearInterval(tiv);F.duration=elp;tng=false}
+  const id=eId||"R"+Date.now(),rec=Object.assign({},F,{id,photoCount:pCnt,timestamp:eId?(recs.find(r=>r.id===eId)?.timestamp||Date.now()):Date.now(),updatedAt:Date.now()});
+  if(eId){const i=recs.findIndex(r=>r.id===eId);if(i>=0)recs[i]=rec}else recs.unshift(rec);sv();
+  if(F.person&&!team.includes(F.person)){team.push(F.person);svT()}toast(eId?"已更新":"#"+F.alertId+" ✓");
+  // Upload photos to GitHub if available
+  const recId=id;const phToUpload=[...pendingPhotos];
+  rFm();uh();go("L");
+  if(ghT&&phToUpload.length>0){uploadPhotos(recId,phToUpload)}else{aSync()}}
+function del2(id){if(!confirm("确认删除？"))return;recs=recs.filter(r=>r.id!==id);sv();uh();go("L");aSync()}
+async function ed(id){const r=recs.find(x=>x.id===id);if(!r)return;F=Object.assign({},r);eId=r.id;elp=r.duration||0;tng=false;pCnt=r.photoCount||0;pendingPhotos=await loadRecPhotos(id);go("A",true);rA()}
 
 // ===== LIST =====
-function rList(){
-  const s=gs(),fl=flt==="all"?recs:recs.filter(r=>r.result===flt);let h="";
-  if(!recs.length){
-    h=`<div style="text-align:center;padding:40px 20px"><div style="font-size:44px;margin-bottom:10px">📋</div><p style="color:var(--dim);margin-bottom:16px">暂无记录</p>`;
-    if(!devs.length)h+=`<button class="bt bt-c bt-s" onclick="$('xlIn').click()">📊 导入告警设备数据</button>`;
-    h+=`</div>`;
-  }else{
-    h+=`<div class="sr">${[{n:s.total,l:"总计",c:"var(--pri)"},{n:s.confirmed,l:"确认",c:"var(--grn)"},{n:s.suspected,l:"疑似",c:"var(--org)"},{n:s.not_found+s.unable,l:"未发现",c:"var(--red)"}].map(x=>`<div class="sc" style="border-top:2px solid ${x.c}"><div class="n" style="color:${x.c}">${x.n}</div><div class="l">${x.l}</div></div>`).join("")}</div>`;
-    h+=`<div class="fb">${[{v:"all",l:"全部"},...RS.map(r=>({v:r.v,l:r.l.slice(2)}))].map(f=>`<div class="fc ${flt===f.v?'a':''}" onclick="flt='${f.v}';rList()">${f.l}</div>`).join("")}</div>`;
-    fl.forEach(r=>{const cr=rl(r.result);
-      h+=`<div class="cd" onclick="showD('${r.id}')"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><span style="font-size:14px;font-weight:700">#${r.alertId}</span><div style="display:flex;align-items:center;gap:5px">${r.duration>0?`<span style="font-size:10px;color:var(--dim)">⏱${fD(r.duration)}</span>`:""} ${r.photoCount>0?`<span style="font-size:10px;color:var(--dim)">📷${r.photoCount}</span>`:""}<span class="tg" style="color:${cr?.c};background:${cr?.bg}">${cr?.l.slice(2)||""}</span></div></div><div style="font-size:11px;color:var(--dim)">${fT(r.timestamp)}${r.person?" · "+r.person:""}${r.leakType?" · "+r.leakType:""}${r.material?" · "+r.material:""}${r.diameter?" · "+r.diameter:""}</div>${r.location?`<div style="font-size:11px;color:var(--dim);margin-top:2px">📍 ${r.location}</div>`:""}</div>`;
-    });
-  }
-  $("vList").innerHTML=h;
-}
+function rL(){const s=gs(),fl=flt==="all"?recs:recs.filter(r=>r.result===flt);let h="";
+  if(!recs.length){h='<div style="text-align:center;padding:40px 20px"><div style="font-size:44px;margin-bottom:10px">📋</div><p style="color:var(--dim);margin-bottom:16px">暂无记录</p>';
+    if(!devs.length)h+='<button class="bt bt-c bt-s" onclick="Q(\'xlIn\').click()">📊 导入设备数据</button>';
+    if(ghT)h+='<button class="bt bt-p bt-s" style="margin-left:8px" onclick="sPull()">☁️ 云端拉取</button>';h+="</div>"}
+  else{h+='<div class="sr">'+[{n:s.total,l:"总计",c:"var(--pri)"},{n:s.confirmed,l:"确认",c:"var(--grn)"},{n:s.suspected,l:"疑似",c:"var(--org)"},{n:s.not_found+s.unable,l:"未发现",c:"var(--red)"}].map(x=>'<div class="sc" style="border-top:2px solid '+x.c+'"><div class="n" style="color:'+x.c+'">'+x.n+'</div><div class="l">'+x.l+"</div></div>").join("")+"</div>";
+    h+='<div class="fb">'+[{v:"all",l:"全部"}].concat(RS.map(r=>({v:r.v,l:r.l.slice(2)}))).map(f=>'<div class="fc'+(flt===f.v?" a":"")+'" onclick="flt=\''+f.v+"';rL()\">"+f.l+"</div>").join("")+"</div>";
+    fl.forEach(r=>{const cr=rl(r.result);h+='<div class="cd" onclick="showD(\''+r.id+"')\"><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:3px\"><span style=\"font-size:14px;font-weight:700\">#"+r.alertId+"</span><div style=\"display:flex;align-items:center;gap:5px\">"+(r.duration>0?'<span style="font-size:10px;color:var(--dim)">⏱'+fD(r.duration)+"</span>":"")+(r.photoCount>0?' <span style="font-size:10px;color:var(--dim)">📷'+r.photoCount+"</span>":"")+'<span class="tg" style="color:'+(cr?.c)+";background:"+(cr?.bg)+'">'+(cr?.l.slice(2)||"")+"</span></div></div>"+'<div style="font-size:11px;color:var(--dim)">'+fT(r.timestamp)+(r.person?" · "+r.person:"")+(r.leakType?" · "+r.leakType:"")+(r.material?" · "+r.material:"")+(r.diameter?" · "+r.diameter:"")+"</div>"+(r.location?'<div style="font-size:11px;color:var(--dim);margin-top:2px">📍 '+r.location+"</div>":"")+"</div>"})}
+  Q("vL").innerHTML=h}
 
 // ===== ADD =====
-function rAdd(){
-  const hd=devs.length>0;let h=`
-    <div class="tb ${tng?'r':'i'}"><div><div style="font-size:11px;color:${tng?"var(--txt)":"var(--dim)"};font-weight:600">⏱ 找漏计时</div><div class="td" id="tD" style="color:${tng?"var(--txt)":"var(--mut)"}">${String(Math.floor(elp/60)).padStart(2,'0')}:${String(elp%60).padStart(2,'0')}</div></div>${!tng?`<button class="bt bt-g bt-s" onclick="tiS()">开始</button>`:`<button class="bt bt-r bt-s" onclick="tiE()">停止</button>`}</div>
-    <div class="fg"><label class="lb">告警编号 *</label><div class="fx"><input class="ip f1" placeholder="编号" value="${F.alertId}" oninput="F.alertId=this.value">${hd?`<button class="bt bt-c bt-s" onclick="showAP()">选择</button>`:""}</div>${hd?`<div style="font-size:10px;color:var(--cyn);margin-top:3px">已导入${devs.length}条，点选择关联</div>`:""}</div>
-    <div class="fg"><label class="lb">确认人</label>`;
-  if(team.length)h+=`<div class="cg" style="margin-bottom:8px">${team.map(m=>`<div class="ch ${F.person===m?'s':''}" onclick="F.person=F.person==='${m}'?'':'${m}';rAdd()">${m}</div>`).join("")}</div>`;
-  h+=`<div class="fx"><input class="ip f1" id="nmI" placeholder="${team.length?"或输入新姓名":"姓名"}"><button class="bt bt-g bt-s" onclick="addM()">+</button></div></div>
-    <div class="fg"><label class="lb">📍 GPS定位</label><div class="fx" style="align-items:center"><button class="bt bt-gh bt-s" style="border:1px solid var(--bdr)" onclick="gps()">获取定位</button><span style="font-size:12px;color:${F.lat?"var(--grn)":"var(--dim)"}">${F.lat?F.lat+", "+F.lng:"需在手机浏览器中使用"}</span></div></div>
-    <div class="fg"><label class="lb">确认结果 *</label><div class="g2">${RS.map(r=>`<div class="ch ${F.result===r.v?'s':''}" style="${F.result===r.v?`background:${r.bg};color:${r.c};border-color:${r.c}`:""}" onclick="sf('result','${r.v}')">${r.l}</div>`).join("")}</div></div>`;
+function rA(){const hd=devs.length>0;let h='<div class="tb '+(tng?"r":"i")+'"><div><div style="font-size:11px;color:'+(tng?"var(--txt)":"var(--dim)")+';font-weight:600">⏱ 找漏计时</div><div class="td" id="tD" style="color:'+(tng?"var(--txt)":"var(--mut)")+'">'+String(Math.floor(elp/60)).padStart(2,'0')+":"+String(elp%60).padStart(2,'0')+"</div></div>"+(!tng?'<button class="bt bt-g bt-s" onclick="tiS()">开始</button>':'<button class="bt bt-r bt-s" onclick="tiE()">停止</button>')+"</div>";
+  h+='<div class="fg"><label class="lb">告警编号 *</label><div class="fx"><input class="ip f1" placeholder="编号" value="'+F.alertId+'" oninput="F.alertId=this.value">'+(hd?'<button class="bt bt-c bt-s" onclick="showAP()">选择</button>':"")+"</div>"+(hd?'<div style="font-size:10px;color:var(--cyn);margin-top:3px">已导入'+devs.length+"条，点选择关联</div>":"")+"</div>";
+  h+='<div class="fg"><label class="lb">确认人</label>';
+  if(team.length)h+='<div class="cg" style="margin-bottom:8px">'+team.map(m=>'<div class="ch'+(F.person===m?" s":"")+'" onclick="F.person=F.person===\''+m+"'?'':'"+m+"';rA()\">"+m+"</div>").join("")+"</div>";
+  h+='<div class="fx"><input class="ip f1" id="nmI" placeholder="'+(team.length?"或输入新姓名":"姓名")+'"><button class="bt bt-g bt-s" onclick="addM()">+</button></div></div>';
+  h+='<div class="fg"><label class="lb">📍 GPS定位</label><div class="fx" style="align-items:center"><button class="bt bt-gh bt-s" style="border:1px solid var(--bdr)" onclick="gps()">获取定位</button><span style="font-size:12px;color:'+(F.lat?"var(--grn)":"var(--dim)")+'">'+(F.lat?F.lat+", "+F.lng:"需在手机浏览器中使用")+"</span></div></div>";
+  h+='<div class="fg"><label class="lb">确认结果 *</label><div class="g2">'+RS.map(r=>'<div class="ch'+(F.result===r.v?" s":"")+'" style="'+(F.result===r.v?"background:"+r.bg+";color:"+r.c+";border-color:"+r.c:"")+'" onclick="sf(\'result\',\''+r.v+"')\">"+r.l+"</div>").join("")+"</div></div>";
   if(F.result==="confirmed"||F.result==="suspected"){
-    h+=`<div class="fg"><label class="lb">漏点类型</label><div class="cg">${mc(LT,"leakType")}</div></div>
-    <div class="fg"><label class="lb">管材</label><div class="cg">${mc(MT,"material")}</div></div>
-    <div class="fg"><label class="lb">管径</label><div class="cg">${mc(DN,"diameter","sm")}</div></div>
-    <div class="fg"><label class="lb">预估埋深</label><div class="cg">${mc(DP,"depth")}</div></div>
-    <div class="fg"><label class="lb">地面类型</label><div class="cg">${mc(SF,"surface")}</div></div>
-    <div class="fx fg"><div class="f1"><label class="lb">预估漏量</label><div class="cg" style="flex-direction:column">${mc(VL,"volume")}</div></div><div class="f1"><label class="lb">修复难度</label><div class="cg" style="flex-direction:column">${mc(DF,"difficulty")}</div></div></div>`;
-  }
-  h+=`<div class="fg"><label class="lb">📷 拍照加水印 (已拍${photoCnt}张)</label>
-    <div style="display:flex;gap:10px;align-items:center"><button class="bt bt-gh bt-s" style="border:1px solid var(--bdr);font-size:14px" onclick="takePhoto()">📷 拍照</button><span style="font-size:12px;color:var(--dim)">自动添加编号+时间+坐标水印，保存至相册</span></div></div>
-    <div class="fg"><label class="lb">位置描述</label><input class="ip" placeholder="如: XX路XX号门前" value="${F.location||""}" oninput="F.location=this.value"></div>
-    <div class="fg"><label class="lb">备注</label><textarea class="ip" oninput="F.notes=this.value">${F.notes||""}</textarea></div>
-    <button class="bt bt-p" onclick="submit()">${eId?"更新记录":"保存记录"}</button>
-    ${eId?`<button class="bt bt-gh" onclick="rF();go('list')">取消</button>`:""}`;
-  $("vAdd").innerHTML=h;
-}
-function addM(){const i=$("nmI"),n=i?.value?.trim();if(!n)return;if(!team.includes(n)){team.push(n);svT()}F.person=n;toast("已添加");rAdd()}
+    h+='<div class="fg"><label class="lb">漏点类型</label><div class="cg">'+mc2(LT,"leakType")+'</div></div><div class="fg"><label class="lb">管材</label><div class="cg">'+mc2(MT,"material")+'</div></div><div class="fg"><label class="lb">管径</label><div class="cg">'+mc2(DN2,"diameter","sm")+'</div></div><div class="fg"><label class="lb">预估埋深</label><div class="cg">'+mc2(DP2,"depth")+'</div></div><div class="fg"><label class="lb">地面类型</label><div class="cg">'+mc2(SFc,"surface")+'</div></div><div class="fx fg"><div class="f1"><label class="lb">预估漏量</label><div class="cg" style="flex-direction:column">'+mc2(VL,"volume")+'</div></div><div class="f1"><label class="lb">修复难度</label><div class="cg" style="flex-direction:column">'+mc2(DFc,"difficulty")+"</div></div></div>"}
+  h+='<div class="fg"><label class="lb">📷 拍照加水印 (已拍'+pCnt+'张'+(ghT?'，自动同步云端':'')+')</label><div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><button class="bt bt-gh bt-s" style="border:1px solid var(--bdr);font-size:14px" onclick="takePhoto()">📷 拍照</button><span style="font-size:12px;color:var(--dim)">水印存相册 + 缩略图存云端</span></div>';
+  if(pendingPhotos.length>0){h+='<div style="display:flex;flex-wrap:wrap;gap:6px">';pendingPhotos.forEach((ph,i)=>{h+='<div style="position:relative;width:60px;height:60px;border-radius:6px;overflow:hidden;border:1px solid var(--bdr)"><img src="'+ph.data+'" style="width:100%;height:100%;object-fit:cover"><div onclick="pendingPhotos.splice('+i+',1);pCnt=Math.max(0,pCnt-1);rA()" style="position:absolute;top:1px;right:1px;width:16px;height:16px;border-radius:8px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer">×</div></div>'});h+='</div>'}
+  h+='</div>';
+  h+='<div class="fg"><label class="lb">位置描述</label><input class="ip" placeholder="如: XX路XX号门前" value="'+(F.location||"")+'" oninput="F.location=this.value"></div>';
+  h+='<div class="fg"><label class="lb">备注</label><textarea class="ip" oninput="F.notes=this.value">'+(F.notes||"")+"</textarea></div>";
+  h+='<button class="bt bt-p" onclick="submit()">'+(eId?"更新记录":"保存记录")+(ghT?" (自动同步)":"")+"</button>";
+  if(eId)h+='<button class="bt bt-gh" onclick="rFm();go(\'L\')">取消</button>';
+  Q("vA").innerHTML=h}
+function addM(){const i=Q("nmI"),n=i?.value?.trim();if(!n)return;if(!team.includes(n)){team.push(n);svT()}F.person=n;toast("已添加");rA()}
 
 // ===== DETAIL =====
-function showD(id){
-  const r=recs.find(x=>x.id===id);if(!r)return;const cr=rl(r.result);
+async function showD(id){const r=recs.find(x=>x.id===id);if(!r)return;const cr=rl(r.result);const cloudPhotos=await loadRecPhotos(id);
   const vm={large:"大 >5t/日",medium:"中 1-5t/日",small:"小 <1t/日"},dm={easy:"简单",medium:"中等",hard:"困难"};
-  const rw=(l,v)=>v?`<div class="dr"><span class="dl">${l}</span><span class="dv">${v}</span></div>`:"";
-  let h=`<button style="background:none;border:none;color:var(--pri);font-size:13px;cursor:pointer;font-weight:600;margin-bottom:14px" onclick="go('list')">← 返回</button>
-    <div style="background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:14px 16px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:20px;font-weight:800">#${r.alertId}</span><span class="tg" style="padding:3px 10px;font-size:12px;color:${cr?.c};background:${cr?.bg}">${cr?.l.slice(2)}</span></div>
-    ${rw("确认时间",fF(r.timestamp))}${rw("确认人员",r.person)}${rw("找漏耗时",fD(r.duration))}${rw("GPS坐标",r.lat?r.lat+", "+r.lng:null)}${rw("漏点类型",r.leakType)}${rw("管材",r.material)}${rw("管径",r.diameter)}${rw("预估埋深",r.depth)}${rw("地面类型",r.surface)}${rw("预估漏量",vm[r.volume])}${rw("修复难度",dm[r.difficulty])}${rw("位置",r.location)}${rw("水印照片",r.photoCount?r.photoCount+"张（在手机相册中）":null)}
-    ${r.notes?`<div style="margin-top:12px"><span style="color:var(--dim);font-size:12px">备注</span><p style="font-size:13px;margin-top:4px;line-height:1.6">${r.notes}</p></div>`:""}
-    </div><div class="fx" style="margin-top:12px"><button class="bt bt-gh f1" style="margin-top:0" onclick="startEdit('${r.id}')">编辑</button><button class="bt bt-r f1" style="margin-top:0" onclick="del('${r.id}')">删除</button></div>`;
-  $("vDetail").innerHTML=h;
-  document.querySelectorAll(".vw").forEach(e=>e.classList.remove("a"));$("vDetail").classList.add("a");
-}
+  const rw=(l,v)=>v?'<div class="dr"><span class="dl">'+l+'</span><span class="dv">'+v+"</span></div>":"";
+  let h='<button style="background:none;border:none;color:var(--pri);font-size:13px;cursor:pointer;font-weight:600;margin-bottom:14px" onclick="go(\'L\')">← 返回</button><div style="background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:14px 16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:20px;font-weight:800">#'+r.alertId+'</span><span class="tg" style="padding:3px 10px;font-size:12px;color:'+(cr?.c)+";background:"+(cr?.bg)+'">'+(cr?.l.slice(2))+"</span></div>";
+  h+=rw("确认时间",fF(r.timestamp))+rw("确认人员",r.person)+rw("找漏耗时",fD(r.duration))+rw("GPS坐标",r.lat?r.lat+", "+r.lng:null)+rw("漏点类型",r.leakType)+rw("管材",r.material)+rw("管径",r.diameter)+rw("预估埋深",r.depth)+rw("地面类型",r.surface)+rw("预估漏量",vm[r.volume])+rw("修复难度",dm[r.difficulty])+rw("位置",r.location)+rw("水印照片",r.photoCount?r.photoCount+"张（手机相册中）":null);
+  if(cloudPhotos.length>0){h+='<div style="margin-top:12px"><span style="color:var(--dim);font-size:12px">云端照片 ('+cloudPhotos.length+'张)</span><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">';cloudPhotos.forEach(p=>{h+='<img src="'+p.data+'" style="width:100px;height:100px;object-fit:cover;border-radius:6px;border:1px solid var(--bdr)">'});h+='</div></div>'}
+    if(r.notes)h+='<div style="margin-top:12px"><span style="color:var(--dim);font-size:12px">备注</span><p style="font-size:13px;margin-top:4px;line-height:1.6">'+r.notes+"</p></div>";
+  h+='</div><div class="fx" style="margin-top:12px"><button class="bt bt-gh f1" style="margin-top:0" onclick="ed(\''+r.id+"')\">编辑</button><button class=\"bt bt-r f1\" style=\"margin-top:0\" onclick=\"del2('"+r.id+"')\">删除</button></div>";
+  Q("vD").innerHTML=h;document.querySelectorAll(".vw").forEach(e=>e.classList.remove("a"));Q("vD").classList.add("a")}
 
 // ===== STATS =====
-function rStats(){
-  const s=gs(),cf=recs.filter(r=>r.result==="confirmed"),lt={},mt={},dt={},dpt={};
+function rS(){const s=gs(),cf=recs.filter(r=>r.result==="confirmed"),lt={},mt={},dt={},dpt={};
   cf.forEach(r=>{if(r.leakType)lt[r.leakType]=(lt[r.leakType]||0)+1;if(r.material)mt[r.material]=(mt[r.material]||0)+1;if(r.diameter)dt[r.diameter]=(dt[r.diameter]||0)+1;if(r.depth)dpt[r.depth]=(dpt[r.depth]||0)+1});
   const avgD=recs.filter(r=>r.duration>0).reduce((a,r,_,ar)=>a+r.duration/ar.length,0);
   const ss={};recs.forEach(r=>{const d=new Date(r.timestamp).toLocaleDateString();if(!ss[d])ss[d]={t:0,c:0};ss[d].t++;if(r.result==="confirmed")ss[d].c++});
-  const bar=(data,color,total)=>Object.entries(data).sort((a,b)=>b[1]-a[1]).map(([k,v])=>{const p=total?((v/total)*100).toFixed(0):"0";return`<div class="br"><div class="bl"><span>${k}</span><span style="color:var(--mut)">${v} (${p}%)</span></div><div class="bk"><div class="bf" style="width:${p}%;background:${color}"></div></div></div>`}).join("");
-  let h=`<h3 style="font-size:17px;margin-bottom:14px">数据统计</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">${[{n:s.total,l:"总数",c:"var(--pri)"},{n:s.confirmed,l:"确认",c:"var(--grn)"},{n:s.rate+"%",l:"确认率",c:"var(--org)"}].map(x=>`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:10px;text-align:center;border-top:3px solid ${x.c}"><div style="font-size:22px;font-weight:800;color:${x.c}">${x.n}</div><div style="font-size:10px;color:var(--dim)">${x.l}</div></div>`).join("")}</div>`;
-  if(avgD>0)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:10px 14px;margin-bottom:14px"><div style="font-size:11px;color:var(--dim)">平均找漏耗时</div><div style="font-size:18px;font-weight:800">${fD(Math.round(avgD))}</div></div>`;
-  if(Object.keys(ss).length)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">按日期统计</div>${Object.entries(ss).map(([d,v])=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bdr);font-size:12px"><span>${d}</span><span><b>${v.t}</b><span style="color:var(--dim)"> 查 / </span><b style="color:var(--grn)">${v.c}</b><span style="color:var(--dim)"> 确认</span></span></div>`).join("")}</div>`;
-  if(Object.keys(lt).length)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">漏点类型</div>${bar(lt,"var(--pri)",s.confirmed)}</div>`;
-  if(Object.keys(mt).length)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">管材分布</div>${bar(mt,"var(--org)",s.confirmed)}</div>`;
-  if(Object.keys(dt).length)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">管径分布</div>${bar(dt,"var(--grn)",s.confirmed)}</div>`;
-  if(Object.keys(dpt).length)h+=`<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">埋深分布</div>${bar(dpt,"var(--pur)",s.confirmed)}</div>`;
-  h+=`<button class="bt bt-p" onclick="expCSV()">📤 导出CSV数据</button>
-    <div style="margin-top:12px;display:flex;gap:8px"><button class="bt bt-g f1" style="margin-top:0" onclick="expJSON()">💾 备份JSON</button><button class="bt bt-gh f1" style="margin-top:0;border:1px solid var(--bdr)" onclick="$('jsonIn').click()">📥 恢复JSON</button></div>
-    <div style="margin-top:16px;border-top:1px solid var(--bdr);padding-top:14px">
-    <p style="font-size:12px;color:var(--mut);font-weight:600;margin-bottom:8px">数据管理</p>
-    <button class="bt bt-c" style="margin-top:0" onclick="$('xlIn').click()">📊 ${devs.length?"重新导入设备数据 ("+devs.length+"条)":"导入告警设备Excel/CSV"}</button>
-    ${team.length?`<div style="margin-top:12px;font-size:11px;color:var(--dim)">已注册人员: ${team.join("、")} <button style="background:none;border:none;color:var(--red);font-size:11px;cursor:pointer;margin-left:8px" onclick="if(confirm('清空？')){team=[];svT();rStats();}">清空</button></div>`:""}
-    </div>`;
-  $("vStats").innerHTML=h;
-}
+  const bar=(data,color,total)=>Object.entries(data).sort((a,b)=>b[1]-a[1]).map(([k,v])=>{const p=total?((v/total)*100).toFixed(0):"0";return'<div class="br"><div class="bl"><span>'+k+'</span><span style="color:var(--mut)">'+v+" ("+p+'%)</span></div><div class="bk"><div class="bf" style="width:'+p+"%;background:"+color+'"></div></div></div>'}).join("");
+  let h='<h3 style="font-size:17px;margin-bottom:14px">数据统计</h3><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">'+[{n:s.total,l:"总数",c:"var(--pri)"},{n:s.confirmed,l:"确认",c:"var(--grn)"},{n:s.rate+"%",l:"确认率",c:"var(--org)"}].map(x=>'<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:10px;text-align:center;border-top:3px solid '+x.c+'"><div style="font-size:22px;font-weight:800;color:'+x.c+'">'+x.n+'</div><div style="font-size:10px;color:var(--dim)">'+x.l+"</div></div>").join("")+"</div>";
+  if(avgD>0)h+='<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:10px 14px;margin-bottom:14px"><div style="font-size:11px;color:var(--dim)">平均找漏耗时</div><div style="font-size:18px;font-weight:800">'+fD(Math.round(avgD))+"</div></div>";
+  if(Object.keys(ss).length)h+='<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">按日期统计</div>'+Object.entries(ss).map(([d,v])=>'<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bdr);font-size:12px"><span>'+d+"</span><span><b>"+v.t+'</b><span style="color:var(--dim)"> 查 / </span><b style="color:var(--grn)">'+v.c+'</b><span style="color:var(--dim)"> 确认</span></span></div>').join("")+"</div>";
+  [["漏点类型",lt,"var(--pri)"],["管材分布",mt,"var(--org)"],["管径分布",dt,"var(--grn)"],["埋深分布",dpt,"var(--pur)"]].forEach(([t2,d2,c2])=>{if(Object.keys(d2).length)h+='<div style="background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--mut);margin-bottom:8px">'+t2+"</div>"+bar(d2,c2,s.confirmed)+"</div>"});
+  h+='<button class="bt bt-p" onclick="expCSV()">📤 导出CSV</button>';
+  if(ghT)h+='<button class="bt bt-g" onclick="genReport()">📋 生成带照片报告</button>';
+  h+='<div style="margin-top:10px" class="fx"><button class="bt bt-g f1" style="margin-top:0" onclick="expJSON()">💾 备份JSON</button><button class="bt bt-gh f1" style="margin-top:0;border:1px solid var(--bdr)" onclick="Q(\'jsIn\').click()">📥 恢复JSON</button></div>';
+  h+='<button class="bt bt-c" style="margin-top:8px" onclick="Q(\'xlIn\').click()">📊 '+(devs.length?"重新导入设备 ("+devs.length+"条)":"导入告警设备Excel/CSV")+"</button>";
+  if(team.length)h+='<div style="margin-top:12px;font-size:11px;color:var(--dim)">人员: '+team.join("、")+' <button style="background:none;border:none;color:var(--red);font-size:11px;cursor:pointer" onclick="if(confirm(\'清空？\')){team=[];svT();rS()}">清空</button></div>';
+  Q("vS").innerHTML=h}
 
-// ===== JSON BACKUP/RESTORE =====
-function expJSON(){
-  const data={records:recs,team,devices:devs,exportTime:new Date().toISOString()};
-  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));
-  a.download=`漏点确认备份_${new Date().toISOString().slice(0,10)}.json`;a.click();toast("备份已导出");
-}
-$("jsonIn").addEventListener("change",function(e){
-  const file=e.target.files?.[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=function(evt){
-    try{
-      const data=JSON.parse(evt.target.result);
-      if(data.records){
-        const merge=confirm(`文件含${data.records.length}条记录。\n\n点"确定"：合并到现有数据\n点"取消"：替换现有数据`);
-        if(merge){const ids=new Set(recs.map(r=>r.id));data.records.forEach(r=>{if(!ids.has(r.id))recs.push(r)});}
-        else recs=data.records;
-        sv();
-      }
-      if(data.team){team=[...new Set([...team,...data.team])];svT();}
-      if(data.devices){devs=data.devices;svD();}
-      uh();toast(`已恢复 ${data.records?.length||0} 条记录`);
-      if(cv==="list")rList();else if(cv==="stats")rStats();
-    }catch(err){toast("JSON解析失败");}
-  };
-  reader.readAsText(file);e.target.value="";
-});
+// ===== SETTINGS =====
+function rC(){let h='<h3 style="font-size:17px;margin-bottom:20px">☁️ 云端同步设置</h3><div style="background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:16px;margin-bottom:16px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><span class="sd sd-'+sst+'" style="width:10px;height:10px"></span><span style="font-size:14px;font-weight:600">'+(sst==="ok"?"已连接":"未连接")+"</span>"+(lsync?'<span style="font-size:11px;color:var(--dim);margin-left:auto">'+lsync+"</span>":"")+"</div>";
+  h+='<div class="fg"><label class="lb">GitHub 仓库</label><input class="ip" placeholder="用户名/仓库名" value="'+ghR+'" oninput="ghR=this.value;localStorage.setItem(\'lk-ghr\',ghR)"></div>';
+  h+='<div class="fg"><label class="lb">Personal Access Token</label><input class="ip" type="password" placeholder="ghp_xxxx..." value="'+ghT+'" oninput="ghT=this.value;localStorage.setItem(\'lk-ght\',ghT)"><div style="font-size:10px;color:var(--dim);margin-top:4px">Token只保存在你手机本地，仅直接与GitHub通信</div></div>';
+  h+='<button class="bt bt-p" style="margin-top:4px" onclick="sTst()">测试连接</button></div>';
+  if(sst==="ok"||ghT)h+='<div style="background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:16px;margin-bottom:16px"><div style="font-size:14px;font-weight:600;margin-bottom:12px">同步操作</div><button class="bt bt-g" style="margin-top:0" onclick="sPush()">⬆️ 推送到云端 ('+recs.length+'条)</button><button class="bt bt-c" onclick="sPull()">⬇️ 从云端拉取合并</button><div style="font-size:11px;color:var(--dim);margin-top:8px">保存记录时自动推送。多手机同仓库，数据自动合并。</div></div>';
+  h+='<div style="background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:16px"><div style="font-size:14px;font-weight:600;margin-bottom:12px">设置说明</div><div style="font-size:12px;color:var(--mut);line-height:1.8"><p style="margin-bottom:8px"><b style="color:var(--txt)">1.</b> GitHub → 头像 → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token → 勾repo → 生成</p><p style="margin-bottom:8px"><b style="color:var(--txt)">2.</b> 粘贴Token到上方 → 点测试连接</p><p style="margin-bottom:8px"><b style="color:var(--txt)">3.</b> 之后保存记录自动同步云端</p><p><b style="color:var(--txt)">4.</b> 多人：不同手机填同一Token和仓库即可</p></div></div>';
+  h+='<div style="margin-top:20px;text-align:center;font-size:11px;color:var(--dim)"><p>本地: '+recs.length+"条 · 设备: "+devs.length+"条 · 人员: "+team.length+"人</p></div>";
+  // Storage section
+  if(ghT){
+    const mb=cloudMB||estSize();
+    h+='<div style="background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:16px;margin-top:16px"><div style="font-size:14px;font-weight:600;margin-bottom:12px">💾 存储管理</div>';
+    h+=sWarn(mb)+sBar(mb);
+    h+='<button class="bt bt-gh" style="margin-top:6px;border:1px solid var(--bdr)" onclick="chkSize().then(m=>{cloudMB=m;rC()});toast(\'正在检查...\')">🔄 刷新用量</button>';
+    h+='<div style="margin-top:14px;border-top:1px solid var(--bdr);padding-top:14px"><div style="font-size:13px;font-weight:600;color:var(--mut);margin-bottom:8px">数据归档与清理</div>';
+    h+='<button class="bt bt-g" style="margin-top:0" onclick="fullExp()">📦 导出完整归档（含照片）</button>';
+    h+='<div style="font-size:10px;color:var(--dim);margin-top:4px;margin-bottom:10px">包含全部记录+云端照片缩略图，一个文件保存所有数据</div>';
+    h+='<button class="bt bt-gh" style="margin-top:0;border:1px solid var(--org);color:var(--org)" onclick="cleanPh()">🧹 清理云端照片（保留记录）</button>';
+    h+='<button class="bt bt-gh" style="margin-top:6px;border:1px solid var(--red);color:var(--red)" onclick="cleanAll()">🗑️ 清空云端全部数据</button>';
+    h+='<div style="font-size:10px;color:var(--dim);margin-top:4px">清理前请先导出归档！本地数据不受影响。</div>';
+    h+='</div></div>';
+  }
+  Q("vC").innerHTML=h}
 
-// ===== CSV EXPORT =====
-function expCSV(){
-  if(!recs.length)return;
-  const h=["告警编号","确认时间","确认人员","确认结果","经度","纬度","漏点类型","管材","管径","埋深","地面","预估漏量","修复难度","找漏耗时(秒)","位置","照片数","备注"];
-  const rm={confirmed:"确认漏点",suspected:"疑似漏点",not_found:"未发现",unable:"无法检测"};
-  const vm={large:"大>5t/日",medium:"中1-5t/日",small:"小<1t/日"},dm={easy:"简单",medium:"中等",hard:"困难"};
-  const rows=recs.map(r=>[`"${r.alertId}"`,fF(r.timestamp),r.person,rm[r.result]||"",r.lng||"",r.lat||"",r.leakType,r.material,r.diameter,r.depth,r.surface,vm[r.volume]||"",dm[r.difficulty]||"",r.duration||"",`"${(r.location||"").replace(/"/g,'')}"`,r.photoCount||0,`"${(r.notes||"").replace(/"/g,'').replace(/\n/g,' ')}"`]);
-  const csv="\uFEFF"+[h,...rows].map(r=>r.join(",")).join("\n");
-  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));
-  a.download=`漏点确认_${new Date().toISOString().slice(0,10)}.csv`;a.click();toast("CSV已导出");
-}
+// ===== JSON =====
+function expJSON(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify({records:recs,team,devices:devs,exportTime:new Date().toISOString()},null,2)],{type:"application/json"}));a.download="漏点备份_"+new Date().toISOString().slice(0,10)+".json";a.click();toast("备份已导出")}
+Q("jsIn").addEventListener("change",function(e){const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();rd.onload=function(ev){try{const d=JSON.parse(ev.target.result);if(d.records){const mg=confirm("含"+d.records.length+"条。确定=合并，取消=替换");if(mg){const ids=new Set(recs.map(r=>r.id));d.records.forEach(r=>{if(!ids.has(r.id))recs.push(r)})}else recs=d.records;sv()}if(d.team){team=[...new Set([...team,...d.team])];svT()}if(d.devices){devs=d.devices;svD()}uh();toast("已恢复");if(cv==="L")rL();if(cv==="S")rS()}catch(er){toast("解析失败")}};rd.readAsText(f);e.target.value=""});
+
+// ===== CSV =====
+function expCSV(){if(!recs.length)return;const h2=["告警编号","确认时间","确认人员","确认结果","经度","纬度","漏点类型","管材","管径","埋深","地面","预估漏量","修复难度","找漏耗时(秒)","位置","照片数","备注"];
+  const rm={confirmed:"确认漏点",suspected:"疑似漏点",not_found:"未发现",unable:"无法检测"},vm={large:"大>5t/日",medium:"中1-5t/日",small:"小<1t/日"},dm={easy:"简单",medium:"中等",hard:"困难"};
+  const rows=recs.map(r=>['"'+r.alertId+'"',fF(r.timestamp),r.person,rm[r.result]||"",r.lng||"",r.lat||"",r.leakType,r.material,r.diameter,r.depth,r.surface,vm[r.volume]||"",dm[r.difficulty]||"",r.duration||"",'"'+(r.location||"").replace(/"/g,"")+'"',r.photoCount||0,'"'+(r.notes||"").replace(/"/g,"").replace(/\n/g," ")+'"']);
+  const csv="\uFEFF"+[h2].concat(rows).map(r=>r.join(",")).join("\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));a.download="漏点确认_"+new Date().toISOString().slice(0,10)+".csv";a.click();toast("CSV已导出")}
 
 // ===== EXCEL IMPORT =====
 let impSt={h:[],r:[],m:{}};
-function autoMap(hs){const m={};hs.forEach((h,i)=>{const hl=(h||"").toLowerCase();FM.forEach(fm=>{if(m[fm.f]!==undefined)return;fm.k.forEach(k=>{if(hl.includes(k)||k.includes(hl))m[fm.f]=i})})});return m}
-$("xlIn").addEventListener("change",function(e){
-  const file=e.target.files?.[0];if(!file)return;
-  const ext=file.name.split('.').pop().toLowerCase();
-  if(ext==="csv"||ext==="tsv"){Papa.parse(file,{complete:r=>{if(r.data.length<2){toast("空文件");return}showImp(r.data[0],r.data.slice(1).filter(r=>r.some(c=>c)),file.name)},skipEmptyLines:true});}
-  else{const rd=new FileReader();rd.onload=evt=>{try{const wb=XLSX.read(evt.target.result,{type:"array"}),ws=wb.Sheets[wb.SheetNames[0]],data=XLSX.utils.sheet_to_json(ws,{header:1});if(data.length<2){toast("空文件");return}showImp(data[0].map(h=>(h||"").toString()),data.slice(1).filter(r=>r.some(c=>c)),file.name)}catch(err){toast("解析失败")}};rd.readAsArrayBuffer(file);}
-  e.target.value="";
-});
-function showImp(hs,rs,fn){
-  impSt={h:hs,r:rs,m:autoMap(hs)};
-  let h=`<div class="md" id="impMd"><div class="mb"><div class="mh"><h3>📊 列映射</h3><button class="mc" onclick="$('impMd').remove()">×</button></div>
-    <p style="font-size:12px;color:var(--dim);margin-bottom:4px">${fn} · ${rs.length}条 · ${hs.length}列</p>
-    <p style="font-size:12px;color:var(--cyn);margin-bottom:16px">已自动识别，请确认：</p>`;
-  FM.forEach(fm=>{
-    h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span style="font-size:12px;color:var(--mut);width:66px;flex-shrink:0;text-align:right">${fm.l}</span><span style="color:var(--dim);font-size:12px">←</span><select style="flex:1;background:var(--inp);border:1px solid var(--bdr);border-radius:6px;padding:8px 10px;color:${impSt.m[fm.f]!==undefined?"var(--grn)":"var(--dim)"};font-size:13px;outline:none" onchange="impSt.m['${fm.f}']=this.value==='-1'?undefined:parseInt(this.value)"><option value="-1">— 不映射 —</option>`;
-    hs.forEach((col,i)=>{const pv=rs[0]?.[i]?` (${String(rs[0][i]).slice(0,12)})`:"";h+=`<option value="${i}" ${impSt.m[fm.f]===i?"selected":""}>${col}${pv}</option>`});
-    h+=`</select></div>`;
-  });
-  h+=`<button class="bt bt-c" style="margin-top:12px" onclick="confImp()">确认导入 ${rs.length} 条</button></div></div>`;
-  document.body.insertAdjacentHTML("beforeend",h);
-}
-function confImp(){
-  if(impSt.m.alertId===undefined){toast("请至少映射告警编号");return}
-  devs=impSt.r.map(row=>{const d={};Object.entries(impSt.m).forEach(([f,ci])=>{if(ci!==undefined&&row[ci]!==undefined)d[f]=(row[ci]||"").toString().trim()});return d}).filter(d=>d.alertId);
-  svD();$("impMd")?.remove();toast(`已导入 ${devs.length} 条`);uh();if(cv==="stats")rStats();
-}
+function autoMap2(hs){const m={};hs.forEach((h2,i)=>{const hl=(h2||"").toLowerCase();FMp.forEach(fm=>{if(m[fm.f]!==undefined)return;fm.k.forEach(k=>{if(hl.includes(k)||k.includes(hl))m[fm.f]=i})})});return m}
+Q("xlIn").addEventListener("change",function(e){const f=e.target.files?.[0];if(!f)return;const ext=f.name.split('.').pop().toLowerCase();
+  if(ext==="csv"||ext==="tsv"){Papa.parse(f,{complete:r=>{if(r.data.length<2)return;showImp(r.data[0],r.data.slice(1).filter(r2=>r2.some(c=>c)),f.name)},skipEmptyLines:true})}
+  else{const rd=new FileReader();rd.onload=ev=>{try{const wb=XLSX.read(ev.target.result,{type:"array"}),ws=wb.Sheets[wb.SheetNames[0]],d=XLSX.utils.sheet_to_json(ws,{header:1});if(d.length<2)return;showImp(d[0].map(h2=>(h2||"").toString()),d.slice(1).filter(r=>r.some(c=>c)),f.name)}catch(er){toast("解析失败")}};rd.readAsArrayBuffer(f)}e.target.value=""});
+function showImp(hs,rs,fn){impSt={h:hs,r:rs,m:autoMap2(hs)};let h='<div class="md" id="impMd"><div class="mb"><div class="mh"><h3>📊 列映射</h3><button class="mc" onclick="Q(\'impMd\').remove()">×</button></div><p style="font-size:12px;color:var(--dim);margin-bottom:4px">'+fn+" · "+rs.length+"条</p><p style=\"font-size:12px;color:var(--cyn);margin-bottom:16px\">已自动识别：</p>";
+  FMp.forEach(fm=>{h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span style="font-size:12px;color:var(--mut);width:66px;flex-shrink:0;text-align:right">'+fm.l+'</span><span style="color:var(--dim);font-size:12px">←</span><select style="flex:1;background:var(--inp);border:1px solid var(--bdr);border-radius:6px;padding:8px 10px;color:'+(impSt.m[fm.f]!==undefined?"var(--grn)":"var(--dim)")+';font-size:13px;outline:none" onchange="impSt.m[\''+fm.f+"']=this.value==='-1'?undefined:parseInt(this.value)\"><option value=\"-1\">— 不映射 —</option>";
+    hs.forEach((col,i)=>{const pv=rs[0]?.[i]?" ("+String(rs[0][i]).slice(0,12)+")":"";h+='<option value="'+i+'"'+(impSt.m[fm.f]===i?" selected":"")+">"+col+pv+"</option>"});h+="</select></div>"});
+  h+='<button class="bt bt-c" style="margin-top:12px" onclick="confImp()">确认导入 '+rs.length+" 条</button></div></div>";document.body.insertAdjacentHTML("beforeend",h)}
+function confImp(){if(impSt.m.alertId===undefined){toast("请映射告警编号");return}devs=impSt.r.map(row=>{const d={};Object.entries(impSt.m).forEach(([f,ci])=>{if(ci!==undefined&&row[ci]!==undefined)d[f]=(row[ci]||"").toString().trim()});return d}).filter(d=>d.alertId);svD();Q("impMd")?.remove();toast("已导入 "+devs.length+" 条");uh();if(cv==="S")rS();aSync()}
 
 // ===== ALERT PICKER =====
-function showAP(){
-  let h=`<div class="md" id="apMd"><div class="mb"><div class="mh"><h3>选择告警点位</h3><button class="mc" onclick="$('apMd').remove()">×</button></div>
-    <input class="ip" id="apSI" placeholder="搜索编号或位置..." oninput="fAP(this.value)" autofocus style="margin-bottom:12px"><div id="apL"></div></div></div>`;
-  document.body.insertAdjacentHTML("beforeend",h);fAP("");
-}
-function fAP(q){
-  const el=$("apL");if(!el)return;const q2=q.toLowerCase();
-  const fl=q2?devs.filter(d=>(d.alertId||"").toLowerCase().includes(q2)||(d.location||"").toLowerCase().includes(q2)):devs.slice(0,50);
-  let h=`<div style="font-size:11px;color:var(--dim);margin-bottom:8px">${fl.length}条${q?" 匹配":""}</div>`;
-  fl.forEach(d=>{const u=recs.some(r=>r.alertId===d.alertId);
-    h+=`<div class="di ${u?'u':''}" onclick="${u?"":"selDev('"+d.alertId.replace(/'/g,"\\'")+"')"}"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px;font-weight:700;color:${u?"var(--dim)":"var(--txt)"}">#${d.alertId}</span>${u?`<span style="font-size:10px;color:var(--dim)">已记录</span>`:""}${d.material?`<span style="font-size:11px;color:var(--mut)">${d.material}${d.diameter?" · "+d.diameter:""}</span>`:""}</div>${d.location?`<div style="font-size:11px;color:var(--dim);margin-top:2px">📍 ${d.location}</div>`:""}</div>`});
-  el.innerHTML=h;
-}
-function selDev(aid){
-  const d=devs.find(x=>x.alertId===aid);if(!d)return;
-  F.alertId=d.alertId||"";
-  if(d.lat)F.lat=d.lat;if(d.lng)F.lng=d.lng;
+function showAP(){let h='<div class="md" id="apMd"><div class="mb"><div class="mh"><h3>选择告警点位</h3><button class="mc" onclick="Q(\'apMd\').remove()">×</button></div><input class="ip" id="apSI" placeholder="搜索编号或位置..." oninput="fAP2(this.value)" autofocus style="margin-bottom:12px"><div id="apL"></div></div></div>';document.body.insertAdjacentHTML("beforeend",h);fAP2("")}
+function fAP2(q){const el=Q("apL");if(!el)return;const q2=q.toLowerCase(),fl=q2?devs.filter(d=>(d.alertId||"").toLowerCase().includes(q2)||(d.location||"").toLowerCase().includes(q2)):devs.slice(0,50);
+  let h='<div style="font-size:11px;color:var(--dim);margin-bottom:8px">'+fl.length+"条</div>";
+  fl.forEach(d=>{const u=recs.some(r=>r.alertId===d.alertId);h+='<div class="di'+(u?" u":"")+'" onclick="'+(u?"":"selDev2('"+d.alertId.replace(/'/g,"\\'")+"')")+'"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px;font-weight:700;color:'+(u?"var(--dim)":"var(--txt)")+'">#'+d.alertId+"</span>"+(u?'<span style="font-size:10px;color:var(--dim)">已记录</span>':"")+(d.material?'<span style="font-size:11px;color:var(--mut)">'+d.material+(d.diameter?" · "+d.diameter:"")+"</span>":"")+"</div>"+(d.location?'<div style="font-size:11px;color:var(--dim);margin-top:2px">📍 '+d.location+"</div>":"")+"</div>"});el.innerHTML=h}
+function selDev2(aid){const d=devs.find(x=>x.alertId===aid);if(!d)return;F.alertId=d.alertId||"";if(d.lat)F.lat=d.lat;if(d.lng)F.lng=d.lng;
   if(d.material){const m=MT.find(m2=>d.material.includes(m2));if(m)F.material=m}
-  if(d.diameter){const dn=DN.find(n=>d.diameter.toUpperCase().includes(n.replace("DN",""))||d.diameter.includes(n));if(dn)F.diameter=dn}
-  if(d.depth){const dp=DP.find(p=>d.depth.includes(p));if(dp)F.depth=dp}
-  if(d.location)F.location=d.location;
-  $("apMd")?.remove();toast(`已关联 #${d.alertId}`);rAdd();
+  if(d.diameter){const dn=DN2.find(n=>d.diameter.toUpperCase().includes(n.replace("DN",""))||d.diameter.includes(n));if(dn)F.diameter=dn}
+  if(d.depth){const dp=DP2.find(p2=>d.depth.includes(p2));if(dp)F.depth=dp}
+  if(d.location)F.location=d.location;Q("apMd")?.remove();toast("已关联 #"+d.alertId);rA()}
+
+// ===== PHOTO CLOUD STORAGE =====
+async function uploadPhotos(recId,photos){
+  if(!ghT||!photos.length)return aSync();
+  sst="ing";uSB();
+  const path="data/photos_"+recId+".json";
+  // Check if exists
+  const existing=await ghGet(path);
+  const sha2=existing&&existing.exists?existing.sha:"";
+  const ok=await ghPut(path,{recordId:recId,photos:photos,updatedAt:Date.now()},sha2);
+  if(ok){toast("📷 "+photos.length+"张照片已同步云端")}
+  await aSync();
+}
+async function loadRecPhotos(recId){
+  if(!ghT)return[];
+  try{
+    const r=await ghGet("data/photos_"+recId+".json");
+    if(r&&r.exists&&r.content.photos)return r.content.photos;
+  }catch(e){}
+  return[];
+}
+// Generate HTML report with embedded photos
+async function genReport(){
+  toast("正在生成报告...");
+  let h2='<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>漏点确认报告</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,sans-serif;background:#f8fafc;padding:20px;max-width:900px;margin:0 auto;color:#1e293b}.hdr{text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:2px solid #e2e8f0}.hdr h1{font-size:22px;margin-bottom:6px}.hdr p{color:#64748b;font-size:13px}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:30px}.sbox{background:#fff;border-radius:10px;padding:14px;text-align:center;border:1px solid #e2e8f0}.sbox .n{font-size:26px;font-weight:800}.sbox .l{font-size:11px;color:#64748b}.card{background:#fff;border-radius:10px;border:1px solid #e2e8f0;margin-bottom:14px;overflow:hidden}.card-h{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f1f5f9}.card-h .id{font-size:16px;font-weight:700}.tag{padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600}.tag-g{background:#dcfce7;color:#16a34a}.tag-o{background:#fef3c7;color:#d97706}.tag-r{background:#fee2e2;color:#dc2626}.tag-p{background:#f3e8ff;color:#9333ea}.card-b{padding:14px 16px}.row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f8fafc;font-size:13px}.row .rl{color:#64748b}.row .rv{font-weight:600}.photos{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.photos img{width:200px;height:150px;object-fit:cover;border-radius:6px;border:1px solid #e2e8f0}.notes{margin-top:10px;padding:10px;background:#f8fafc;border-radius:6px;font-size:13px;color:#475569}</style></head><body>';
+  h2+='<div class="hdr"><h1>漏点确认报告</h1><p>生成时间: '+fF(Date.now())+'</p></div>';
+  const s=gs();
+  h2+='<div class="summary"><div class="sbox"><div class="n" style="color:#3b82f6">'+s.total+'</div><div class="l">检查总数</div></div><div class="sbox"><div class="n" style="color:#22c55e">'+s.confirmed+'</div><div class="l">确认漏点</div></div><div class="sbox"><div class="n" style="color:#f59e0b">'+s.suspected+'</div><div class="l">疑似漏点</div></div><div class="sbox"><div class="n" style="color:#22c55e">'+s.rate+'%</div><div class="l">确认率</div></div></div>';
+  const vm={large:"大 >5t/日",medium:"中 1-5t/日",small:"小 <1t/日"},dm={easy:"简单",medium:"中等",hard:"困难"};
+  const tc={confirmed:"g",suspected:"o",not_found:"r",unable:"p"};
+  const tl={confirmed:"确认漏点",suspected:"疑似漏点",not_found:"未发现",unable:"无法检测"};
+  for(const r of recs){
+    const photos=await loadRecPhotos(r.id);
+    h2+='<div class="card"><div class="card-h"><span class="id">#'+r.alertId+'</span><span class="tag tag-'+(tc[r.result]||"g")+'">'+(tl[r.result]||"")+'</span></div><div class="card-b">';
+    const rw=(l,v)=>v?'<div class="row"><span class="rl">'+l+'</span><span class="rv">'+v+'</span></div>':'';
+    h2+=rw("确认时间",fF(r.timestamp))+rw("确认人员",r.person)+rw("找漏耗时",fD(r.duration))+rw("GPS坐标",r.lat?r.lat+", "+r.lng:"")+rw("漏点类型",r.leakType)+rw("管材",r.material)+rw("管径",r.diameter)+rw("埋深",r.depth)+rw("地面",r.surface)+rw("漏量",vm[r.volume]||"")+rw("修复难度",dm[r.difficulty]||"")+rw("位置",r.location);
+    if(photos.length>0){h2+='<div class="photos">';photos.forEach(p=>{h2+='<img src="'+p.data+'">'});h2+='</div>'}
+    if(r.notes)h2+='<div class="notes">备注: '+r.notes+'</div>';
+    h2+='</div></div>';
+  }
+  h2+='</body></html>';
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([h2],{type:"text/html;charset=utf-8"}));
+  a.download="漏点确认报告_"+new Date().toISOString().slice(0,10)+".html";a.click();toast("报告已生成");
 }
 
+// ===== STORAGE MONITOR =====
+const SLIM=100,SWARN=50,SCRIT=80;let cloudMB=0;
+function estSize(){const rs=JSON.stringify(recs).length;const tp=recs.reduce((a,r)=>a+(r.photoCount||0),0);return(rs+tp*50*1024)/(1024*1024)}
+async function chkSize(){if(!ghT||!ghR)return estSize();try{const r=await fetch("https://api.github.com/repos/"+ghR,{headers:{Authorization:"token "+ghT}});if(r.ok){const d=await r.json();cloudMB=(d.size||0)/1024;return cloudMB}}catch(e){}return estSize()}
+function sBar(mb){const p=Math.min(mb/SLIM*100,100),c=mb>=SCRIT?"var(--red)":mb>=SWARN?"var(--org)":"var(--grn)";return'<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span>云端存储</span><span style="color:'+c+';font-weight:700">'+mb.toFixed(1)+"MB / "+SLIM+'MB</span></div><div style="height:8px;background:var(--inp);border-radius:4px"><div style="height:8px;border-radius:4px;background:'+c+";width:"+p+'%"></div></div></div>'}
+function sWarn(mb){if(mb>=SCRIT)return'<div style="background:var(--redBg);border:1px solid var(--red);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px"><b style="color:var(--red)">⚠️ 存储严重不足！</b>请立即导出并清理云端。</div>';if(mb>=SWARN)return'<div style="background:var(--orgBg);border:1px solid var(--org);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px"><b style="color:var(--org)">⚠️ 存储已过半</b> 建议导出归档后清理。</div>';return''}
+
+// Full archive export (records + all cloud photos)
+async function fullExp(){toast("打包全部数据+照片...");const ap={};for(const r of recs){const ph=await loadRecPhotos(r.id);if(ph.length>0)ap[r.id]=ph}const pkg={records:recs,team,devices:devs,photos:ap,exportTime:new Date().toISOString(),version:"full"};const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(pkg)],{type:"application/json"}));a.download="漏点完整归档_"+new Date().toISOString().slice(0,10)+".json";a.click();toast("完整归档已导出（含照片）")}
+
+// Clean cloud photos only
+async function cleanPh(){if(!confirm("清理云端照片？\n记录保留，照片删除。\n请确保已导出归档！"))return;if(!confirm("不可恢复，确定？"))return;toast("清理中...");let n=0;for(const r of recs){const p="data/photos_"+r.id+".json";try{const g=await ghGet(p);if(g&&g.exists){await fetch("https://api.github.com/repos/"+ghR+"/contents/"+p,{method:"DELETE",headers:{Authorization:"token "+ghT,Accept:"application/vnd.github.v3+json","Content-Type":"application/json"},body:JSON.stringify({message:"clean",sha:g.sha})});n++}}catch(e){}}toast("已清理"+n+"个照片文件");cloudMB=await chkSize();if(cv==="C")rC()}
+
+// Clean all cloud data
+async function cleanAll(){if(!confirm("清空云端全部数据？\n本地不受影响。\n请确保已导出！"))return;toast("清空中...");try{const g=await ghGet("data/records.json");if(g&&g.exists){await fetch("https://api.github.com/repos/"+ghR+"/contents/data/records.json",{method:"DELETE",headers:{Authorization:"token "+ghT,Accept:"application/vnd.github.v3+json","Content-Type":"application/json"},body:JSON.stringify({message:"clean",sha:g.sha})});ghSha="";svG()}}catch(e){}for(const r of recs){try{const g=await ghGet("data/photos_"+r.id+".json");if(g&&g.exists){await fetch("https://api.github.com/repos/"+ghR+"/contents/data/photos_"+r.id+".json",{method:"DELETE",headers:{Authorization:"token "+ghT,Accept:"application/vnd.github.v3+json","Content-Type":"application/json"},body:JSON.stringify({message:"clean",sha:g.sha})})}}catch(e){}}toast("云端已清空");cloudMB=0;if(cv==="C")rC()}
+
 // INIT
-uh();rList();
+uh();rL();if(ghT){sPull().then(()=>chkSize())}
 </script>
 </body>
 </html>
